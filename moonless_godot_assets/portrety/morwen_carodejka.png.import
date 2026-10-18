@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1u1sa3b31hsr"
-path="res://.godot/imported/beta.png-a539035cf8a189edb96c2a32b8661fad.ctex"
+uid="uid://tcu1p5ewfcev"
+path="res://.godot/imported/morwen_carodejka.png-d262a09969b3bc3cce62a304dae4643b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://moonless_godot_assets/portrety/beta.png"
-dest_files=["res://.godot/imported/beta.png-a539035cf8a189edb96c2a32b8661fad.ctex"]
+source_file="res://moonless_godot_assets/portrety/morwen_carodejka.png"
+dest_files=["res://.godot/imported/morwen_carodejka.png-d262a09969b3bc3cce62a304dae4643b.ctex"]
 
 [params]
 

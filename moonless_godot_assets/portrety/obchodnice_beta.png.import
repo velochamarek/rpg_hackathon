@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dna8sl71rqp6t"
-path="res://.godot/imported/vitek.png-985111afb2141fd55c590f37fbfb4065.ctex"
+uid="uid://bvcimcv4ds1bl"
+path="res://.godot/imported/obchodnice_beta.png-d4ae8c9360e16cd75f1c9d8fcd99045d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://moonless_godot_assets/portrety/vitek.png"
-dest_files=["res://.godot/imported/vitek.png-985111afb2141fd55c590f37fbfb4065.ctex"]
+source_file="res://moonless_godot_assets/portrety/obchodnice_beta.png"
+dest_files=["res://.godot/imported/obchodnice_beta.png-d4ae8c9360e16cd75f1c9d8fcd99045d.ctex"]
 
 [params]
 

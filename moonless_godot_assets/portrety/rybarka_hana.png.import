@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7fpvuj1bwt4h"
-path="res://.godot/imported/morwen.png-bfc202832d17df526e8d1ed81ed5b112.ctex"
+uid="uid://kv5h423qayag"
+path="res://.godot/imported/rybarka_hana.png-192e4f7ddc9611c892cd63f4bf9a7a74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://moonless_godot_assets/portrety/morwen.png"
-dest_files=["res://.godot/imported/morwen.png-bfc202832d17df526e8d1ed81ed5b112.ctex"]
+source_file="res://moonless_godot_assets/portrety/rybarka_hana.png"
+dest_files=["res://.godot/imported/rybarka_hana.png-192e4f7ddc9611c892cd63f4bf9a7a74.ctex"]
 
 [params]
 

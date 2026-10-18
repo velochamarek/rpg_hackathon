@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bq20ejfeml36j"
-path="res://.godot/imported/hana.png-a61756fbc967f5de2c723e05c5c2960f.ctex"
+uid="uid://cvu6qpl0cawks"
+path="res://.godot/imported/zpevak_vitek.png-106ab1a98513c158a9e0df1c68e27c74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://moonless_godot_assets/portrety/hana.png"
-dest_files=["res://.godot/imported/hana.png-a61756fbc967f5de2c723e05c5c2960f.ctex"]
+source_file="res://moonless_godot_assets/portrety/zpevak_vitek.png"
+dest_files=["res://.godot/imported/zpevak_vitek.png-106ab1a98513c158a9e0df1c68e27c74.ctex"]
 
 [params]
 
