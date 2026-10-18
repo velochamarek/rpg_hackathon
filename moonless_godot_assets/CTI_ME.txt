@@ -1,0 +1,23 @@
+MOONLESS - grafika pro Godot
+============================
+
+Celou slozku zkopirujte do projektu jako res://assets/
+
+sceny/      pozadi (vesnice, pobrezi, les, katedrala, titulni obrazovka)
+portrety/   portrety postav do dialogoveho okna (960 x 1000 px)
+ui/         logo Moonless (pruhledne pozadi) a dva lektvary
+fonts/      pisma (licence OFL, zdarma i pro komercni pouziti)
+            GrenzeGotisch.ttf  - nadpisy a jmena postav
+            Alegreya.ttf       - dialogy a bezny text
+            VT323-Regular.ttf  - ukazatele (jen bez diakritiky)
+
+Barvy (Godot je prijima ve formatu #RRGGBB):
+  noc (pozadi)    #0E1015
+  bridlice        #2B303B
+  kamen (ramecky) #4A5162
+  pergamen (text) #D8C9A3
+  jantar          #F2A541   komfort, hlavni tlacitka
+  zlata           #F2C46D   nadpisy
+  zhavy uhlik     #B8621B   ramecek dialogu
+  duch / glitch   #9FE6FF   glitch, Morwen
+  reputace        #8A93A6
