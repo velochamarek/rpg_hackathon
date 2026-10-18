@@ -26,3 +26,9 @@ window/stretch/aspect="expand"
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+
+[autoload]
+
+GameState="*res://scripts/game_state.gd"
+HUD="*res://hud.tscn"
+Dialog="*res://scripts/dialog.gd"
