@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://n8872pntmlh5"]
+
+[ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="1_7h2o0"]
+
+[node name="Pobrezi" type="Node2D" unique_id=25400125]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1808356721]
+offset_top = -237.0
+offset_right = 1920.0
+offset_bottom = 1242.0
+texture = ExtResource("1_7h2o0")
