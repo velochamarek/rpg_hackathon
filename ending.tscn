@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://hvy7eoqrrep5"]
+
+[ext_resource type="Script" uid="uid://dxcr5wlsfb1re" path="res://scripts/ending.gd" id="1_fsb5k"]
+
+[node name="Ending" type="Control" unique_id=2037163717]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fsb5k")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=990914000]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1122034739]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=958129918]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1189223871]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+
+[node name="TextLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1873523978]
+custom_minimum_size = Vector2(1300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=639825556]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "zpět do menu"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

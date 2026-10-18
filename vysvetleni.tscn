@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://nymxj64d38oh"]
+
+[ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel/CinzelDecorative-Regular.otf" id="1_co4q2"]
+[ext_resource type="Script" uid="uid://d02q7s3v45e2w" path="res://scripts/vysvetleni.gd" id="1_o4pvy"]
+[ext_resource type="FontFile" uid="uid://cndex4d4qudbr" path="res://fonts/zero-one/Zero One.woff" id="2_i000e"]
+[ext_resource type="AudioStream" uid="uid://d3tprup3n5tpj" path="res://audio/dlouhe_psani.ogg" id="3_le8q2"]
+[ext_resource type="AudioStream" uid="uid://dm81rjj0jv1b3" path="res://audio/mezernik.wav" id="4_qaa6g"]
+[ext_resource type="AudioStream" uid="uid://cim14400whew2" path="res://audio/klik.mp3" id="5_md2xg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_le8q2"]
+bg_color = Color(0.1882353, 0.17254902, 0.16470589, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 0.9607843, 0.58431375, 1)
+border_blend = true
+
+[node name="Vysvětlení" type="Control" unique_id=39712244]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o4pvy")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1924577818]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05490196, 0.0627451, 0.08235294, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1199486004]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=63518483]
+layout_mode = 2
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="TextLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=357970819]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_fonts/font = ExtResource("1_co4q2")
+theme_override_font_sizes/font_size = 26
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=880393948]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.827451, 0.7921569, 0.49411765, 1)
+theme_override_colors/font_focus_color = Color(0.9411765, 0.9019608, 0.5529412, 1)
+theme_override_colors/font_pressed_color = Color(0.9411765, 0.9019608, 0.5529412, 1)
+theme_override_fonts/font = ExtResource("2_i000e")
+theme_override_font_sizes/font_size = 63
+theme_override_styles/normal = SubResource("StyleBoxFlat_le8q2")
+text = "start"
+
+[node name="TypingSound" type="AudioStreamPlayer" parent="." unique_id=4675262]
+stream = ExtResource("3_le8q2")
+
+[node name="EndClick" type="AudioStreamPlayer" parent="." unique_id=1503091839]
+stream = ExtResource("4_qaa6g")
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=638350500]
+stream = ExtResource("5_md2xg")
