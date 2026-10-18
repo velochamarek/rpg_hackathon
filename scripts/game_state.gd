@@ -2,6 +2,9 @@ extends Node
 ## Globální stav hry Moonless. Autoload s názvem "GameState".
 ## Všechna čísla a texty odpovídají dokumentu moonless.docx.
 ##
+## Glitch 100 hru sám neukončí: odemkne na mapě šipku ke katedrále
+## (GameState.is_cathedral_open()). Smrt při komfortu 0 přijde sama.
+##
 ## Použití z jiných scén:
 ##   GameState.get_npc("beta")      -> data NPC (jméno, úvodní věta, replika hráče)
 ##   GameState.can_talk("beta")     -> splňuje hráč podmínku reputace?
@@ -20,12 +23,11 @@ const START_GLITCH := 0
 const START_REPUTATION := 50
 
 const INTERACTION_COST := 2        # každá interakce, i neúspěšná
-const DECAY_SECONDS := 30.0        # při testování klidně 2.0; pokud je hra moc těžká
+const DECAY_SECONDS := 30.0        # při testování klidně 2.0; pokud je hra moc těžká, 45.0
 const DECAY_AMOUNT := 1
 const ENDING_DELAY := 2.5          # kolik sekund má hráč na přečtení odpovědi, než přijde konec
 
 # --- Cesty ke scénám (upravte podle toho, jak se u vás scény jmenují) ---
-const POTION_SCENE := "res://katedrala.tscn"
 const ENDING_SCENES := {
 	"death": "res://endings/death.tscn",     # komfort 0
 	"escape": "res://endings/escape.tscn",   # červený lektvar
@@ -135,13 +137,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not running or game_over:
 		return
+
+	# Hlídá smrt pořád, ať komfort klesl jakkoli
+	if not _locked and comfort <= MIN_STAT:
+		_locked = true
+		get_tree().create_timer(ENDING_DELAY).timeout.connect(_check_end)
+		return
+
 	_decay_timer += delta
 	if _decay_timer >= DECAY_SECONDS:
 		_decay_timer = 0.0
 		_add("comfort", -DECAY_AMOUNT)
 		stats_changed.emit()
-		if comfort <= MIN_STAT:
-			_check_end()
 
 
 ## Nová hra: staty na začátek, hodiny zatím stojí (běží úvodní text).
@@ -201,12 +208,23 @@ func interact(npc_id: String) -> Dictionary:
 	stats_changed.emit()
 	interaction_done.emit(npc_id, result)
 
-	# Konec přijde až po chvíli, aby si hráč stihl přečíst odpověď
-	if comfort <= MIN_STAT or glitch >= MAX_STAT:
+	# Smrt přijde až po chvíli, aby si hráč stihl přečíst odpověď
+	if comfort <= MIN_STAT:
 		_locked = true
 		get_tree().create_timer(ENDING_DELAY).timeout.connect(_check_end)
 
 	return result
+
+
+## Je katedrála odemčená? (glitch 100) Mapa podle toho ukáže šipku.
+func is_cathedral_open() -> bool:
+	return glitch >= MAX_STAT
+
+
+## Volá scéna katedrály při vstupu: zastaví čas a další interakce.
+func enter_cathedral() -> void:
+	running = false
+	_locked = true
 
 
 ## Ukončí hru a přepne na obrazovku konce ("death", "escape", "forget").
@@ -222,22 +240,12 @@ func end_game(ending_id: String) -> void:
 		get_tree().call_deferred("change_scene_to_file", ENDING_SCENES[ending_id])
 
 
-# Nejdřív komfort (prohra), až potom glitch (lektvary)
+# Glitch 100 hru neukončuje, jen odemkne katedrálu na mapě
 func _check_end() -> void:
 	if game_over:
 		return
 	if comfort <= MIN_STAT:
 		end_game("death")
-	elif glitch >= MAX_STAT:
-		_open_potions()
-
-
-func _open_potions() -> void:
-	running = false      # během volby lektvarů komfort neubývá a HUD je schovaný
-	_locked = true
-	print("GLITCH 100: volba lektvarů")
-	if ResourceLoader.exists(POTION_SCENE):
-		get_tree().call_deferred("change_scene_to_file", POTION_SCENE)
 
 
 func _add(stat: String, amount: int) -> void:
@@ -257,3 +265,40 @@ func _pick(list: Array, visit_number: int) -> String:
 	if list.is_empty():
 		return ""
 	return list[mini(visit_number - 1, list.size() - 1)]
+
+
+# --- Testovací klávesy (jen při spuštění z editoru) ---
+# 1 až 4: interakce s Bětou, Hanou, Vítkem, Morwen (výsledek v Output)
+# G: glitch +10   K: komfort −10   R: reputace +10   T: reputace −10
+func _unhandled_input(event: InputEvent) -> void:
+	if not OS.is_debug_build() or not (event is InputEventKey):
+		return
+	if not event.pressed or event.echo:
+		return
+	match event.keycode:
+		KEY_1: _debug_npc("beta")
+		KEY_2: _debug_npc("hana")
+		KEY_3: _debug_npc("vitek")
+		KEY_4: _debug_npc("morwen")
+		KEY_G: _debug_add("glitch", 10)
+		KEY_K: _debug_add("comfort", -10)
+		KEY_R: _debug_add("reputation", 10)
+		KEY_T: _debug_add("reputation", -10)
+
+
+func _debug_npc(npc_id: String) -> void:
+	var r := interact(npc_id)
+	if r.is_empty():
+		print("[TEST] Interakce nejde, hra neběží (jsi na mapě?)")
+		return
+	print("[TEST] %s: %s" % [get_npc(npc_id).name, "ÚSPĚCH" if r.success else "NEÚSPĚCH"])
+	print("       ", r.text)
+	if r.narrator != "":
+		print("       Vypravěč: ", r.narrator)
+
+
+func _debug_add(stat: String, amount: int) -> void:
+	if not running or game_over:
+		return
+	_add(stat, amount)
+	stats_changed.emit()

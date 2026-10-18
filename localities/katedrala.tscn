@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c23eox4pehv1y"]
+
+[ext_resource type="Texture2D" uid="uid://d0ryf5bjc1byr" path="res://moonless_godot_assets/sceny/scene_cathedral.jpg" id="1_m3x2c"]
+
+[node name="Katedrala" type="Node2D" unique_id=98942501]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=991255167]
+offset_top = -314.0
+offset_right = 1920.0
+offset_bottom = 1329.12
+texture = ExtResource("1_m3x2c")

@@ -8,8 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="5_iw27f"]
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="6_71pa8"]
 [ext_resource type="AudioStream" uid="uid://dgsu4rptvfdfx" path="res://audio/mapa_hudba.ogg" id="7_71pa8"]
+[ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Regular.otf" id="8_gqbix"]
 
-[node name="Map" type="Control" unique_id=372122502]
+[node name="Map" type="Control" unique_id=372122502 node_paths=PackedStringArray("cathedral_arrow")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,6 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wijl4")
+cathedral_arrow = NodePath("MarginContainer/VBoxContainer/utect_do_katedraly")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1064950744]
 layout_mode = 1
@@ -139,6 +141,17 @@ theme_override_fonts/font = ExtResource("4_urblq")
 theme_override_font_sizes/font_size = 25
 text = "Morwenina chýše na kraji lesa. Temná strana, kde hráč platí za pravdu."
 autowrap_mode = 3
+
+[node name="utect_do_katedraly" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2080452718]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
+theme_override_fonts/font = ExtResource("8_gqbix")
+theme_override_font_sizes/font_size = 60
+text = "Utéct do katedrály"
+script = ExtResource("4_05x41")
+target_scene = "uid://c23eox4pehv1y"
 
 [node name="MapMusic" type="AudioStreamPlayer" parent="." unique_id=1125777317]
 stream = ExtResource("7_71pa8")
