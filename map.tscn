@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bdn5rs1rtftwb"]
 
 [ext_resource type="FontFile" uid="uid://borrxqshpluu0" path="res://moonless_godot_assets/fonts/GrenzeGotisch.ttf" id="1_c7s6e"]
+[ext_resource type="Script" uid="uid://cbkik07pbs521" path="res://scripts/map.gd" id="1_wijl4"]
 
 [node name="Map" type="Control" unique_id=372122502]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wijl4")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1064950744]
 layout_mode = 1

@@ -10,7 +10,7 @@ GLITCH… zatím nedává smysl. Všímej si, co ve světě nesedí.
 
 Klikni na postavu a promluv si s ní."""
 
-const NEXT_SCENE := "res://world.tscn"
+const NEXT_SCENE := "res://map.tscn"
 
 @export var start_delay := 1.0   # vteřina ticha na černé obrazovce před začátkem
 
