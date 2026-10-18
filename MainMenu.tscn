@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://du3gp3yxeal1o" path="res://scripts/main_menu.gd" id="1_eiy7p"]
 [ext_resource type="Texture2D" uid="uid://dbcyhjfdg6pcb" path="res://img/main_menu_pozadi_prototyp.jpg" id="1_i26rj"]
+[ext_resource type="FontFile" uid="uid://dxvfdfpyq0x8s" path="res://fonts/shortage/Shortage.otf" id="3_h7a2f"]
 
 [node name="MainMenu" type="Control" unique_id=680591601]
 layout_mode = 3
@@ -30,8 +31,10 @@ offset_bottom = 447.0
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=1590534393]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
-text = "RPG-hra"
+theme_override_colors/font_color = Color(1, 1, 0.3647059, 1)
+theme_override_fonts/font = ExtResource("3_h7a2f")
+theme_override_font_sizes/font_size = 189
+text = "MOONLESS"
 
 [node name="NewGameButton" type="Button" parent="VBoxContainer" unique_id=1797032730]
 layout_mode = 2
