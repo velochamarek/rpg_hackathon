@@ -17,22 +17,23 @@ const START_REPUTATION := 5
 const START_GLITCH := 0
 
 # Po kolika sekundách ubude 1 komfort (pro testování klidně dejte 2.0)
-const COMFORT_DECAY_SECONDS := 60.0
+const COMFORT_DECAY_SECONDS := 40.0
 
 var comfort := START_COMFORT
 var reputation := START_REPUTATION
 var glitch := START_GLITCH
 
 var game_over := false
+var running := false
 var ending := ""                # "death", "escape", "system"
 
 var _decay_timer := 0.0
 var _offer_sent := false
 var _glitch_sent := false
 
-
+# ubírání comfortu
 func _process(delta: float) -> void:
-	if game_over:
+	if game_over or not running:
 		return
 	_decay_timer += delta
 	if _decay_timer >= COMFORT_DECAY_SECONDS:
@@ -90,3 +91,4 @@ func reset() -> void:
 	_offer_sent = false
 	_glitch_sent = false
 	stats_changed.emit()
+	running = true
