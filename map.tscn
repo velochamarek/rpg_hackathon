@@ -94,7 +94,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
 theme_override_fonts/font = ExtResource("1_c7s6e")
 theme_override_font_sizes/font_size = 38
-text = "Ves"
+text = "Pobřeží"
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_pobrezi" unique_id=1622383018]
 custom_minimum_size = Vector2(200, 0)
@@ -121,7 +121,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
 theme_override_fonts/font = ExtResource("1_c7s6e")
 theme_override_font_sizes/font_size = 38
-text = "Ves"
+text = "Les"
 
 [node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_les" unique_id=2063916073]
 custom_minimum_size = Vector2(200, 0)
