@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://bdn5rs1rtftwb"]
 
 [ext_resource type="Script" uid="uid://cbkik07pbs521" path="res://scripts/map.gd" id="1_wijl4"]
+<<<<<<< HEAD
 [ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel/CinzelDecorative-Bold.otf" id="2_wijl4"]
+=======
+[ext_resource type="Texture2D" uid="uid://c6ohg2x8jj2rb" path="res://moonless_godot_assets/sceny/scene_village.jpg" id="3_p5pve"]
+[ext_resource type="FontFile" uid="uid://cnnfvpydg7m8c" path="res://moonless_godot_assets/fonts/Alegreya.ttf" id="4_urblq"]
+[ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="5_iw27f"]
+[ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="6_71pa8"]
+>>>>>>> ef0852b55d37eb4e463239d241c1e3a5910b285f
 
 [node name="Map" type="Control" unique_id=372122502]
 layout_mode = 3
@@ -29,7 +36,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
+theme_override_constants/margin_top = 120
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
@@ -42,3 +49,88 @@ theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
 theme_override_fonts/font = ExtResource("2_wijl4")
 theme_override_font_sizes/font_size = 60
 text = "Mapa Vesnice"
+
+[node name="místa" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1062941063]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="karta_ves" type="VBoxContainer" parent="MarginContainer/VBoxContainer/místa" unique_id=48244079]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="tlacitko_ves" type="TextureButton" parent="MarginContainer/VBoxContainer/místa/karta_ves" unique_id=2142218161]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+texture_normal = ExtResource("3_p5pve")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_ves" unique_id=122078518]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
+theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_font_sizes/font_size = 38
+text = "Ves"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_ves" unique_id=1706925624]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_fonts/font = ExtResource("4_urblq")
+theme_override_font_sizes/font_size = 25
+text = "Běta na tržiště a Vítek za tím. Světlá strana, kam se hráč vrací pro jídlo, ale všude jsou stíny..."
+autowrap_mode = 3
+
+[node name="karta_pobrezi" type="VBoxContainer" parent="MarginContainer/VBoxContainer/místa" unique_id=201749120]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="tlacitko_pobrezi" type="TextureButton" parent="MarginContainer/VBoxContainer/místa/karta_pobrezi" unique_id=1656483607]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+texture_normal = ExtResource("5_iw27f")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_pobrezi" unique_id=1822547032]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
+theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_font_sizes/font_size = 38
+text = "Pobřeží"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_pobrezi" unique_id=1622383018]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_fonts/font = ExtResource("4_urblq")
+theme_override_font_sizes/font_size = 25
+text = "Hana spravuje sítě pod zříceninou. Místo, kde si hráč buduje pověst."
+autowrap_mode = 3
+
+[node name="karta_les" type="VBoxContainer" parent="MarginContainer/VBoxContainer/místa" unique_id=1036957410]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="tlacitko_les" type="TextureButton" parent="MarginContainer/VBoxContainer/místa/karta_les" unique_id=1737413217]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+texture_normal = ExtResource("6_71pa8")
+ignore_texture_size = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_les" unique_id=520999641]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
+theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_font_sizes/font_size = 38
+text = "Les"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_les" unique_id=2063916073]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_fonts/font = ExtResource("4_urblq")
+theme_override_font_sizes/font_size = 25
+text = "Morwenina chýše na kraji lesa. Temná strana, kde hráč platí za pravdu."
+autowrap_mode = 3
