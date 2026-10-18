@@ -2,7 +2,27 @@
 
 [ext_resource type="Script" uid="uid://du3gp3yxeal1o" path="res://scripts/main_menu.gd" id="1_eiy7p"]
 [ext_resource type="Texture2D" uid="uid://dbcyhjfdg6pcb" path="res://img/main_menu_pozadi_prototyp.jpg" id="1_i26rj"]
-[ext_resource type="FontFile" uid="uid://dxvfdfpyq0x8s" path="res://fonts/shortage/Shortage.otf" id="3_h7a2f"]
+[ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel/CinzelDecorative-Regular.otf" id="3_iwfq2"]
+[ext_resource type="FontFile" uid="uid://cndex4d4qudbr" path="res://fonts/zero-one/Zero One.woff" id="4_iwfq2"]
+[ext_resource type="FontFile" uid="uid://wa4dk0jwr5hu" path="res://fonts/zero-one/Zero One.ttf" id="5_7r1g0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7r1g0"]
+bg_color = Color(0.1882353, 0.17254902, 0.16470589, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 0.9607843, 0.58431375, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iwfq2"]
+bg_color = Color(0.1882353, 0.17254902, 0.16470589, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.9490196, 0.9098039, 0.5568628, 1)
+border_blend = true
 
 [node name="MainMenu" type="Control" unique_id=680591601]
 layout_mode = 3
@@ -28,22 +48,29 @@ offset_left = 150.0
 offset_top = 400.0
 offset_right = 235.0
 offset_bottom = 447.0
+theme_override_constants/separation = 25
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=1590534393]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.3647059, 1)
-theme_override_fonts/font = ExtResource("3_h7a2f")
-theme_override_font_sizes/font_size = 189
+theme_override_fonts/font = ExtResource("3_iwfq2")
+theme_override_font_sizes/font_size = 116
 text = "MOONLESS"
 
 [node name="NewGameButton" type="Button" parent="VBoxContainer" unique_id=1797032730]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.827451, 0.7921569, 0.49411765, 1)
+theme_override_fonts/font = ExtResource("4_iwfq2")
+theme_override_font_sizes/font_size = 63
+theme_override_styles/normal = SubResource("StyleBoxFlat_7r1g0")
 text = "New Game"
 
 [node name="QuitGameButton" type="Button" parent="VBoxContainer" unique_id=1693217446]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(0.8117647, 0.7764706, 0.4862745, 1)
+theme_override_fonts/font = ExtResource("5_7r1g0")
+theme_override_font_sizes/font_size = 63
+theme_override_styles/normal = SubResource("StyleBoxFlat_iwfq2")
 text = "Quit Game"
 
 [connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
