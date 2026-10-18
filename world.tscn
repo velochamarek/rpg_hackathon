@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b4wsrplmjsrlm"]
+
+[node name="World" type="Node2D" unique_id=1706047236]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1104945752]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD" unique_id=1762354516]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 238.0
+offset_bottom = 60.0
+
+[node name="Label" type="Label" parent="HUD/HBoxContainer" unique_id=1856356119]
+layout_mode = 2
+text = "Comfort"
+
+[node name="ComfortBar" type="ProgressBar" parent="HUD/HBoxContainer" unique_id=529844202]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+max_value = 10.0
+step = 1.0
+show_percentage = false
