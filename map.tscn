@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cbkik07pbs521" path="res://scripts/map.gd" id="1_wijl4"]
 [ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="2_iw27f"]
 [ext_resource type="Texture2D" uid="uid://c6ohg2x8jj2rb" path="res://moonless_godot_assets/sceny/scene_village.jpg" id="3_p5pve"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="4_05x41"]
 [ext_resource type="FontFile" uid="uid://cnnfvpydg7m8c" path="res://moonless_godot_assets/fonts/Alegreya.ttf" id="4_urblq"]
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="5_iw27f"]
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="6_71pa8"]
@@ -62,6 +63,8 @@ layout_mode = 2
 texture_normal = ExtResource("3_p5pve")
 ignore_texture_size = true
 stretch_mode = 6
+script = ExtResource("4_05x41")
+target_scene = "uid://ctp1l6f2via6t"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_ves" unique_id=122078518]
 layout_mode = 2
@@ -89,6 +92,8 @@ layout_mode = 2
 texture_normal = ExtResource("5_iw27f")
 ignore_texture_size = true
 stretch_mode = 6
+script = ExtResource("4_05x41")
+target_scene = "uid://n8872pntmlh5"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_pobrezi" unique_id=1822547032]
 layout_mode = 2
@@ -116,6 +121,8 @@ layout_mode = 2
 texture_normal = ExtResource("6_71pa8")
 ignore_texture_size = true
 stretch_mode = 6
+script = ExtResource("4_05x41")
+target_scene = "uid://cbiql3rqqxbtu"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_les" unique_id=520999641]
 layout_mode = 2
