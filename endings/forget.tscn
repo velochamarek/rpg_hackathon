@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cb7oeu8ehxshs"]
+[gd_scene format=3 uid="uid://dslwejgb6s06t"]
 
-[ext_resource type="Script" uid="uid://dxcr5wlsfb1re" path="res://scripts/ending.gd" id="1_fsb5k"]
+[ext_resource type="Script" uid="uid://dxcr5wlsfb1re" path="res://scripts/ending.gd" id="1_3dv4c"]
 
 [node name="Ending" type="Control" unique_id=2037163717]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fsb5k")
+script = ExtResource("1_3dv4c")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=990914000]
 layout_mode = 1
@@ -31,12 +31,14 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1189223871]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
+text = "Zapomněl jsi"
 horizontal_alignment = 1
 
 [node name="TextLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1873523978]
 custom_minimum_size = Vector2(1300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
+text = "Vzal jsi to jako good boy a budeš otrok systému"
 horizontal_alignment = 1
 autowrap_mode = 3
 
