@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://c1eg3g367eub6"]
 
 [ext_resource type="Script" uid="uid://dxcr5wlsfb1re" path="res://scripts/ending.gd" id="1_gt4ob"]
+[ext_resource type="Texture2D" uid="uid://dfxli5ir6blai" path="res://moonless_godot_assets/sceny/scene_redpotion.jpg" id="2_nv2gx"]
+[ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Regular.otf" id="3_nv2gx"]
 
 [node name="Ending" type="Control" unique_id=2037163717]
 layout_mode = 3
@@ -11,14 +13,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gt4ob")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=990914000]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1920290098]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_nv2gx")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1122034739]
 layout_mode = 1
@@ -30,6 +29,7 @@ layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1189223871]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nv2gx")
 theme_override_font_sizes/font_size = 64
 text = "Utekl jsi"
 horizontal_alignment = 1
@@ -37,6 +37,7 @@ horizontal_alignment = 1
 [node name="TextLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1873523978]
 custom_minimum_size = Vector2(1300, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_nv2gx")
 theme_override_font_sizes/font_size = 40
 text = "Gratuluju, nejsi otrokem matrixu"
 horizontal_alignment = 1
@@ -46,6 +47,7 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_nv2gx")
 theme_override_font_sizes/font_size = 40
 text = "zpět do menu"
 
