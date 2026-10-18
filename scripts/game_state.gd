@@ -26,6 +26,7 @@ const INTERACTION_COST := 2        # každá interakce, i neúspěšná
 const DECAY_SECONDS := 30.0        # při testování klidně 2.0; pokud je hra moc těžká, 45.0
 const DECAY_AMOUNT := 1
 const ENDING_DELAY := 2.5          # kolik sekund má hráč na přečtení odpovědi, než přijde konec
+const DEBUG_KEYS := false          # testovací klávesy (viz konec souboru); pro testování přepněte na true
 
 # --- Cesty ke scénám (upravte podle toho, jak se u vás scény jmenují) ---
 const ENDING_SCENES := {
@@ -37,6 +38,7 @@ const ENDING_SCENES := {
 # --- NPC (kapitola 4, 5 a 2) ---
 # success a narrator jsou seznamy podle počtu úspěšných návštěv.
 # Po poslední položce se opakuje poslední.
+# Morwen má 6 pravd: to nejdůležitější (varování před Bětou) přijde ve 4. návštěvě.
 const NPCS := {
 	"beta": {
 		"name": "Běta",
@@ -102,16 +104,20 @@ const NPCS := {
 		"player_line": "Zaplatím. Řekni mi pravdu.",
 		"success": [
 			"Všiml sis, že nikdo ve vsi nemá vzpomínky starší než pár let? Zeptej se jich.",
-			"Na nebi není měsíc, protože ho nikdo nenamaloval. Tenhle svět je jen obraz.",
+			"Na nebi není měsíc. Nezapomněli ho. Schovali ho, protože ukazuje cestu ven.",
+			"Ti duchové v lese jsou lidé ze vsi, kteří se ptali moc nahlas. Teď už se neptají na nic.",
+			"Dávej si pozor na tu, co tě krmí. Kdo tě sytí, ten tě drží.",
 			"Tenhle svět někdo postavil. A ty jsi jediný, kdo začal vidět švy.",
-			"Už jsi skoro tam. Ještě kousek a svět se začne trhat.",
+			"Až se svět začne trhat, jdi do katedrály. Je to jediné místo, které nikdo nedokončil.",
 		],
 		"fail": "Lidé tě ještě mají rádi. S takovým nemluvím. Vrať se, až tě vyženou.",
 		"narrator": [
 			"Zvedne se vítr a rozbolí tě hlava, jako by tě něco chtělo umlčet.",
-			"Podíváš se do studny u chýše. Hladina neodráží nic, ani nebe.",
+			"Podíváš se na nebe. Tam, kde by měl být měsíc, je jen hladká tma.",
 			"Mezi stromy proletí duch. Na okamžik vypadá jako někdo ze vsi.",
+			"Z vesnice zaslechneš Bětin smích. Zní přesně stejně jako včera.",
 			"Obzor se zachvěje a na okamžik se roztrhne jako plátno.",
+			"Nad stromy se tyčí věž katedrály. Poprvé si všimneš, že nevrhá žádný stín.",
 		],
 	},
 }
@@ -168,8 +174,11 @@ func reset() -> void:
 
 
 ## Spustí odčítání komfortu a zobrazí HUD. Volá se při vstupu na mapu.
+## Pokud předchozí hra skončila, začne automaticky novou (staty na začátek).
 func start() -> void:
-	if not running and not game_over and not _locked:
+	if game_over:
+		reset()
+	if not running and not _locked:
 		running = true
 
 
@@ -267,11 +276,11 @@ func _pick(list: Array, visit_number: int) -> String:
 	return list[mini(visit_number - 1, list.size() - 1)]
 
 
-# --- Testovací klávesy (jen při spuštění z editoru) ---
+# --- Testovací klávesy (jen když je DEBUG_KEYS = true a hra běží z editoru) ---
 # 1 až 4: interakce s Bětou, Hanou, Vítkem, Morwen (výsledek v Output)
 # G: glitch +10   K: komfort −10   R: reputace +10   T: reputace −10
 func _unhandled_input(event: InputEvent) -> void:
-	if not OS.is_debug_build() or not (event is InputEventKey):
+	if not DEBUG_KEYS or not OS.is_debug_build() or not (event is InputEventKey):
 		return
 	if not event.pressed or event.echo:
 		return
