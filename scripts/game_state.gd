@@ -9,7 +9,7 @@ signal true_glitch_unlocked     # glitch dosáhl 10 -> pravý glitch jde najít
 
 const MIN_STAT := 0
 const MAX_STAT := 10
-const ENDING_SCENE := "res://ending.tscn" # jeste se vytvori
+const ENDING_SCENE := "res://ending.tscn"
 
 # Startovní hodnoty
 const START_COMFORT := 6
@@ -17,7 +17,7 @@ const START_REPUTATION := 5
 const START_GLITCH := 0
 
 # Po kolika sekundách ubude 1 komfort (pro testování klidně dejte 2.0)
-const COMFORT_DECAY_SECONDS := 40.0
+const COMFORT_DECAY_SECONDS := 1.0
 
 var comfort := START_COMFORT
 var reputation := START_REPUTATION
