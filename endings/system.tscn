@@ -31,12 +31,14 @@ layout_mode = 2
 [node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1189223871]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
+text = "Jsi delulu"
 horizontal_alignment = 1
 
 [node name="TextLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1873523978]
 custom_minimum_size = Vector2(1300, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
+text = "Vymaxoval jsi reputaci a máš rád systém natolik, že už ani nechceš utéct"
 horizontal_alignment = 1
 autowrap_mode = 3
 

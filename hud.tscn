@@ -1,0 +1,292 @@
+[gd_scene format=3 uid="uid://dh0xlpd6my7pu"]
+
+[ext_resource type="Script" uid="uid://cadakbm08v4pv" path="res://scripts/hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.078, 0.086, 0.11, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.243, 0.271, 0.322, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HUD" type="CanvasLayer" unique_id=1338948296]
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=932520968]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 458.0
+offset_bottom = 170.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1877892993]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ComfortRow" type="HBoxContainer" parent="Panel/VBox" unique_id=827125445]
+layout_mode = 2
+tooltip_text = "Jídlo, pití a spánek. Postupně ubývá. Když dojde, umřeš."
+mouse_filter = 0
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Panel/VBox/ComfortRow" unique_id=979311663]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.627, 0.29, 1)
+theme_override_font_sizes/font_size = 22
+text = "Komfort"
+
+[node name="Pips" type="HBoxContainer" parent="Panel/VBox/ComfortRow" unique_id=1141161691]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Pip1" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=1601995111]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.91, 0.627, 0.29, 1)
+
+[node name="Pip2" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=1734242490]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.91, 0.627, 0.29, 1)
+
+[node name="Pip3" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=836344599]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.91, 0.627, 0.29, 1)
+
+[node name="Pip4" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=1389004526]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.91, 0.627, 0.29, 1)
+
+[node name="Pip5" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=1603444031]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.91, 0.627, 0.29, 1)
+
+[node name="Pip6" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=2108347]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.91, 0.627, 0.29, 1)
+
+[node name="Pip7" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=861578407]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip8" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=20754941]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip9" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=1657033929]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip10" type="ColorRect" parent="Panel/VBox/ComfortRow/Pips" unique_id=945408899]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Value" type="Label" parent="Panel/VBox/ComfortRow" unique_id=956938631]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 20
+text = "6/10"
+horizontal_alignment = 2
+
+[node name="ReputationRow" type="HBoxContainer" parent="Panel/VBox" unique_id=873884163]
+layout_mode = 2
+tooltip_text = "Co si o tobě myslí vesnice. Na maximu tě systém pohltí."
+mouse_filter = 0
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Panel/VBox/ReputationRow" unique_id=269837865]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.851, 0.753, 0.541, 1)
+theme_override_font_sizes/font_size = 22
+text = "Reputace"
+
+[node name="Pips" type="HBoxContainer" parent="Panel/VBox/ReputationRow" unique_id=1427187394]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Pip1" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=1892130112]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.851, 0.753, 0.541, 1)
+
+[node name="Pip2" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=279061599]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.851, 0.753, 0.541, 1)
+
+[node name="Pip3" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=1815848948]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.851, 0.753, 0.541, 1)
+
+[node name="Pip4" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=798978276]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.851, 0.753, 0.541, 1)
+
+[node name="Pip5" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=10868495]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.851, 0.753, 0.541, 1)
+
+[node name="Pip6" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=2048167036]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip7" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=680978329]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip8" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=1560165563]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip9" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=1515518846]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip10" type="ColorRect" parent="Panel/VBox/ReputationRow/Pips" unique_id=1845876551]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Value" type="Label" parent="Panel/VBox/ReputationRow" unique_id=1513430769]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 20
+text = "5/10"
+horizontal_alignment = 2
+
+[node name="GlitchRow" type="HBoxContainer" parent="Panel/VBox" unique_id=1861094913]
+layout_mode = 2
+tooltip_text = "Kolik trhlin ve světě vidíš. Na maximu najdeš cestu ven."
+mouse_filter = 0
+theme_override_constants/separation = 12
+
+[node name="Name" type="Label" parent="Panel/VBox/GlitchRow" unique_id=1493974937]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.373, 0.89, 0.816, 1)
+theme_override_font_sizes/font_size = 22
+text = "Glitch"
+
+[node name="Pips" type="HBoxContainer" parent="Panel/VBox/GlitchRow" unique_id=1861360620]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Pip1" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=1311771909]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.373, 0.89, 0.816, 1)
+
+[node name="Pip2" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=514092948]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.373, 0.89, 0.816, 1)
+
+[node name="Pip3" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=1716632534]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.373, 0.89, 0.816, 1)
+
+[node name="Pip4" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=2003749331]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip5" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=384785454]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip6" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=1367522314]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip7" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=2025644065]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip8" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=660478051]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip9" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=431398456]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Pip10" type="ColorRect" parent="Panel/VBox/GlitchRow/Pips" unique_id=472732051]
+custom_minimum_size = Vector2(16, 22)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="Value" type="Label" parent="Panel/VBox/GlitchRow" unique_id=1738745425]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 20
+text = "3/10"
+horizontal_alignment = 2
