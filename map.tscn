@@ -1,14 +1,11 @@
 [gd_scene format=3 uid="uid://bdn5rs1rtftwb"]
 
+[ext_resource type="FontFile" uid="uid://borrxqshpluu0" path="res://moonless_godot_assets/fonts/GrenzeGotisch.ttf" id="1_c7s6e"]
 [ext_resource type="Script" uid="uid://cbkik07pbs521" path="res://scripts/map.gd" id="1_wijl4"]
-<<<<<<< HEAD
-[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel/CinzelDecorative-Bold.otf" id="2_wijl4"]
-=======
 [ext_resource type="Texture2D" uid="uid://c6ohg2x8jj2rb" path="res://moonless_godot_assets/sceny/scene_village.jpg" id="3_p5pve"]
 [ext_resource type="FontFile" uid="uid://cnnfvpydg7m8c" path="res://moonless_godot_assets/fonts/Alegreya.ttf" id="4_urblq"]
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="5_iw27f"]
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="6_71pa8"]
->>>>>>> ef0852b55d37eb4e463239d241c1e3a5910b285f
 
 [node name="Map" type="Control" unique_id=372122502]
 layout_mode = 3
@@ -46,7 +43,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=498609125]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
-theme_override_fonts/font = ExtResource("2_wijl4")
+theme_override_fonts/font = ExtResource("1_c7s6e")
 theme_override_font_sizes/font_size = 60
 text = "Mapa Vesnice"
 
