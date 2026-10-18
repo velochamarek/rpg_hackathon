@@ -1,104 +1,259 @@
 extends Node
-## Globální stav hry. Zapojit jako Autoload s názvem "GameState".
-## Odkudkoli ve hře: GameState.change(komfort, reputace, glitch)
-## Příklad čarodějnice: GameState.change(0, -3, 2)
+## Globální stav hry Moonless. Autoload s názvem "GameState".
+## Všechna čísla a texty odpovídají dokumentu moonless.docx.
+##
+## Použití z jiných scén:
+##   GameState.get_npc("beta")      -> data NPC (jméno, úvodní věta, replika hráče)
+##   GameState.can_talk("beta")     -> splňuje hráč podmínku reputace?
+##   GameState.interact("beta")     -> provede akci, vrátí {success, text, narrator}
 
-signal stats_changed            # staty se změnily -> HUD se překreslí
-signal system_offer             # reputace dosáhla 10 -> nabídka systému
-signal true_glitch_unlocked     # glitch dosáhl 10 -> pravý glitch jde najít
+signal stats_changed                       # změnil se kterýkoli stat
+signal glitch_gained(amount: int)          # glitch stoupl (pro modré probliknutí)
+signal interaction_done(npc_id: String, result: Dictionary)
 
+# --- Parametry (kapitola 3 a 9) ---
 const MIN_STAT := 0
-const MAX_STAT := 10
+const MAX_STAT := 100
+
+const START_COMFORT := 70
+const START_GLITCH := 0
+const START_REPUTATION := 50
+
+const INTERACTION_COST := 2        # každá interakce, i neúspěšná
+const DECAY_SECONDS := 30.0        # při testování klidně 2.0; pokud je hra moc těžká
+const DECAY_AMOUNT := 1
+const ENDING_DELAY := 2.5          # kolik sekund má hráč na přečtení odpovědi, než přijde konec
+
+# --- Cesty ke scénám (upravte podle toho, jak se u vás scény jmenují) ---
+const POTION_SCENE := "res://katedrala.tscn"
 const ENDING_SCENES := {
-	"death": "res://endings/death.tscn",
-	"escape": "res://endings/escape.tscn",
-	"forget": "res://endings/forget.tscn",
-	"system": "res://endings/system.tscn",
+	"death": "res://endings/death.tscn",     # komfort 0
+	"escape": "res://endings/escape.tscn",   # červený lektvar
+	"forget": "res://endings/forget.tscn",   # modrý lektvar
 }
 
-# Startovní hodnoty
-const START_COMFORT := 6
-const START_REPUTATION := 5
-const START_GLITCH := 0
+# --- NPC (kapitola 4, 5 a 2) ---
+# success a narrator jsou seznamy podle počtu úspěšných návštěv.
+# Po poslední položce se opakuje poslední.
+const NPCS := {
+	"beta": {
+		"name": "Běta",
+		"rep_min": 60,
+		"rep_max": 100,
+		"effects": {"comfort": 30, "glitch": -5},
+		"greeting": "Dobrý den, poutníku. Vypadáš unaveně.",
+		"player_line": "Nemáte prosím něco k jídlu?",
+		"success": [
+			"Na, vezmi si polévku a kus chleba. Proč bys chodil někam jinam? Tady je ti přece dobře.",
+		],
+		"fail": "Neznám tě dost dobře. Nejdřív ukaž, že jsi poctivý člověk. Třeba Hana u moře by pomoc potřebovala.",
+		"narrator": [
+			"Polévka tě zahřeje. Na chvíli si nemůžeš vzpomenout, co tě vlastně trápilo.",
+			"Běta tě vítá stejnými slovy jako minule. Slovo od slova.",
+			"Stejná polévka, stejný chléb, stejná kůrka. Jestli tu zůstaneš, bude to tak navždy.",
+		],
+	},
+	"hana": {
+		"name": "Hana",
+		"rep_min": 0,
+		"rep_max": 100,
+		"effects": {"reputation": 20, "comfort": -10},
+		"greeting": "Ty sítě se samy nespraví. Nepomůžeš?",
+		"player_line": "Pomůžu.",
+		"success": [
+			"Díky, máš šikovné ruce. Řeknu ve vsi, že jsi poctivý člověk. A na toho barda nedej, plete lidem hlavy.",
+		],
+		"fail": "",
+		"narrator": [
+			"Zeptáš se Hany, jak se jmenuje vesnice. Zamyslí se… a pak se rychle vrátí k sítím.",
+			"Spravuješ díru v síti. Tu samou, kterou jsi spravoval minule.",
+			"Vlny narážejí na břeh pořád ve stejném rytmu. Raz, dva, tři. Raz, dva, tři.",
+		],
+	},
+	"vitek": {
+		"name": "Vítek",
+		"rep_min": 20,
+		"rep_max": 100,
+		"effects": {"glitch": 10, "reputation": -15},
+		"greeting": "Znám jednu píseň, kterou ve vsi zpívat nesmím. Chceš ji slyšet?",
+		"player_line": "Zazpívej mi ji.",
+		"success": [
+			"…za lesem není nic, jen bílá mlha a ticho…",
+			"…každé ráno stejné ráno, každý chléb stejný chléb…",
+			"…ptáci létají v kruzích, protože jinam nesmí…",
+			"…a kdo se ptá, proč je to tak, ten brzy zapomene…",
+		],
+		"fail": "Promiň, kamaráde. Kdyby mě s tebou někdo viděl, už mě nepustí do žádné hospody.",
+		"narrator": [
+			"Podíváš se k lesu. Za posledními stromy opravdu není nic, jen bílá mlha.",
+			"Hospodský celý večer leští pořád stejný korbel.",
+			"Nad návsí krouží hejno ptáků. Dokonalý kruh, pořád dokola.",
+			"Na chvíli se ti zatmí před očima. Když se vzpamatuješ, nevíš, co jsi chtěl říct.",
+		],
+	},
+	"morwen": {
+		"name": "Morwen",
+		"rep_min": 0,
+		"rep_max": 20,
+		"effects": {"glitch": 15, "comfort": -15},
+		"greeting": "Kdysi jsem bydlela ve vsi. Pak jsem začala klást otázky. Zase jeden, co se chce probudit? Pravda něco stojí.",
+		"player_line": "Zaplatím. Řekni mi pravdu.",
+		"success": [
+			"Všiml sis, že nikdo ve vsi nemá vzpomínky starší než pár let? Zeptej se jich.",
+			"Na nebi není měsíc, protože ho nikdo nenamaloval. Tenhle svět je jen obraz.",
+			"Tenhle svět někdo postavil. A ty jsi jediný, kdo začal vidět švy.",
+			"Už jsi skoro tam. Ještě kousek a svět se začne trhat.",
+		],
+		"fail": "Lidé tě ještě mají rádi. S takovým nemluvím. Vrať se, až tě vyženou.",
+		"narrator": [
+			"Zvedne se vítr a rozbolí tě hlava, jako by tě něco chtělo umlčet.",
+			"Podíváš se do studny u chýše. Hladina neodráží nic, ani nebe.",
+			"Mezi stromy proletí duch. Na okamžik vypadá jako někdo ze vsi.",
+			"Obzor se zachvěje a na okamžik se roztrhne jako plátno.",
+		],
+	},
+}
 
-# Po kolika sekundách ubude 1 komfort (pro testování klidně dejte 2.0)
-const COMFORT_DECAY_SECONDS := 1.0
-
+# --- Stav ---
 var comfort := START_COMFORT
-var reputation := START_REPUTATION
 var glitch := START_GLITCH
+var reputation := START_REPUTATION
 
+var running := false      # běží odčítání komfortu a je vidět HUD
 var game_over := false
-var running := false
-var ending := ""                # "death", "escape", "system"
+var ending := ""          # "death", "escape", "forget"
+var visits := {}          # počet úspěšných návštěv každého NPC
 
 var _decay_timer := 0.0
-var _offer_sent := false
-var _glitch_sent := false
+var _locked := false      # konec už je rozhodnutý, další interakce nejdou
 
-# ubírání comfortu
+
+func _ready() -> void:
+	reset()
+
+
 func _process(delta: float) -> void:
-	if game_over or not running:
+	if not running or game_over:
 		return
 	_decay_timer += delta
-	if _decay_timer >= COMFORT_DECAY_SECONDS:
+	if _decay_timer >= DECAY_SECONDS:
 		_decay_timer = 0.0
-		change(-1, 0, 0)
+		_add("comfort", -DECAY_AMOUNT)
+		stats_changed.emit()
+		if comfort <= MIN_STAT:
+			_check_end()
 
 
-## Hlavní funkce pro změnu statů. Kladná čísla přidávají, záporná ubírají.
-func change(d_comfort: int, d_reputation: int, d_glitch: int) -> void:
-	if game_over:
-		return
-	comfort = clampi(comfort + d_comfort, MIN_STAT, MAX_STAT)
-	reputation = clampi(reputation + d_reputation, MIN_STAT, MAX_STAT)
-	glitch = clampi(glitch + d_glitch, MIN_STAT, MAX_STAT)
+## Nová hra: staty na začátek, hodiny zatím stojí (běží úvodní text).
+func reset() -> void:
+	comfort = START_COMFORT
+	glitch = START_GLITCH
+	reputation = START_REPUTATION
+	running = false
+	game_over = false
+	ending = ""
+	_decay_timer = 0.0
+	_locked = false
+	visits = {}
+	for id in NPCS:
+		visits[id] = 0
 	stats_changed.emit()
-	_check_thresholds()
 
 
-func _check_thresholds() -> void:
-	if comfort <= MIN_STAT:
-		end_game("death")
-		return
-
-	if reputation >= MAX_STAT and not _offer_sent:
-		_offer_sent = true
-		system_offer.emit()
-	elif reputation < MAX_STAT:
-		_offer_sent = false   # když reputace klesne, nabídka může přijít znovu
-
-	if glitch >= MAX_STAT and not _glitch_sent:
-		_glitch_sent = true
-		true_glitch_unlocked.emit()
+## Spustí odčítání komfortu a zobrazí HUD. Volá se při vstupu na mapu.
+func start() -> void:
+	if not running and not game_over and not _locked:
+		running = true
 
 
-## Zavolat, když hráč přijme nabídku systému ("system")
-## nebo použije pravý glitch ("escape").
+func get_npc(npc_id: String) -> Dictionary:
+	return NPCS.get(npc_id, {})
+
+
+## Splňuje hráč podmínku reputace pro akci u tohoto NPC?
+func can_talk(npc_id: String) -> bool:
+	var npc := get_npc(npc_id)
+	if npc.is_empty():
+		return false
+	return reputation >= npc.rep_min and reputation <= npc.rep_max
+
+
+## Hráč zvolil akci u NPC. Vrací {success, text, narrator}.
+## Odejít nic nestojí, tuhle funkci pro to nevolejte.
+func interact(npc_id: String) -> Dictionary:
+	var npc := get_npc(npc_id)
+	if npc.is_empty() or not running or game_over or _locked:
+		return {}
+
+	# Každá interakce stojí sílu, i neúspěšná
+	_add("comfort", -INTERACTION_COST)
+
+	var result := {"success": false, "text": npc.fail, "narrator": ""}
+	if can_talk(npc_id):
+		for stat in npc.effects:
+			_add(stat, npc.effects[stat])
+		visits[npc_id] += 1
+		var n: int = visits[npc_id]
+		result.success = true
+		result.text = _pick(npc.success, n)
+		result.narrator = _pick(npc.narrator, n)
+
+	stats_changed.emit()
+	interaction_done.emit(npc_id, result)
+
+	# Konec přijde až po chvíli, aby si hráč stihl přečíst odpověď
+	if comfort <= MIN_STAT or glitch >= MAX_STAT:
+		_locked = true
+		get_tree().create_timer(ENDING_DELAY).timeout.connect(_check_end)
+
+	return result
+
+
+## Ukončí hru a přepne na obrazovku konce ("death", "escape", "forget").
+## Lektvary v katedrále volají tuhle funkci.
 func end_game(ending_id: String) -> void:
 	if game_over:
 		return
 	game_over = true
+	running = false
 	ending = ending_id
 	print("KONEC HRY: ", ending_id)
 	if ENDING_SCENES.has(ending_id):
 		get_tree().call_deferred("change_scene_to_file", ENDING_SCENES[ending_id])
 
 
-## Nová hra - vrátí všechno na začátek.
-func reset() -> void:
-	comfort = START_COMFORT
-	reputation = START_REPUTATION
-	glitch = START_GLITCH
-	game_over = false
-	ending = ""
-	_decay_timer = 0.0
-	_offer_sent = false
-	_glitch_sent = false
-	stats_changed.emit()
-	running = false
+# Nejdřív komfort (prohra), až potom glitch (lektvary)
+func _check_end() -> void:
+	if game_over:
+		return
+	if comfort <= MIN_STAT:
+		end_game("death")
+	elif glitch >= MAX_STAT:
+		_open_potions()
 
-## Spustí odčítání komfortu a zobrazí HUD. Volá se při vstupu na mapu.
-func start() -> void:
-	if not running and not game_over:
-		running = true
+
+func _open_potions() -> void:
+	running = false      # během volby lektvarů komfort neubývá a HUD je schovaný
+	_locked = true
+	print("GLITCH 100: volba lektvarů")
+	if ResourceLoader.exists(POTION_SCENE):
+		get_tree().call_deferred("change_scene_to_file", POTION_SCENE)
+
+
+func _add(stat: String, amount: int) -> void:
+	match stat:
+		"comfort":
+			comfort = clampi(comfort + amount, MIN_STAT, MAX_STAT)
+		"reputation":
+			reputation = clampi(reputation + amount, MIN_STAT, MAX_STAT)
+		"glitch":
+			var before := glitch
+			glitch = clampi(glitch + amount, MIN_STAT, MAX_STAT)
+			if glitch > before:
+				glitch_gained.emit(glitch - before)
+
+
+func _pick(list: Array, visit_number: int) -> String:
+	if list.is_empty():
+		return ""
+	return list[mini(visit_number - 1, list.size() - 1)]

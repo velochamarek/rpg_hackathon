@@ -8,12 +8,13 @@ extends CanvasLayer
 
 const DANGER := Color("e05a4f")        # barva komfortu, když dochází
 const DANGER_THRESHOLD := 0.2          # pod 20 % komfortu
-const EMPTY_PIP := Color(1, 1, 1, 0.08)
+const EMPTY_PIP := Color("2b303b")     # Břidlice z palety
+const FLASH_ALPHA := 0.35              # síla modrého probliknutí při glitchi
 
 @onready var rows := {
 	"comfort": $Panel/VBox/ComfortRow,
-	"reputation": $Panel/VBox/ReputationRow,
 	"glitch": $Panel/VBox/GlitchRow,
+	"reputation": $Panel/VBox/ReputationRow,
 }
 
 var _base_colors := {}
@@ -29,7 +30,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	# Ukázat jen během hry, ne v menu ani na endingu
+	# Ukázat jen během hry, ne v menu, úvodu, u lektvarů ani na konci
 	visible = GameState.running and not GameState.game_over
 
 
@@ -53,14 +54,14 @@ func _update() -> void:
 			pips[i].color = color if i < filled else EMPTY_PIP
 
 		var value_label: Label = row.get_node("Value")
-		value_label.text = "%d/%d" % [value, max_value]
+		value_label.text = str(value)
 
 		# Krátký záblesk řádku, když se hodnota změnila
 		if _last.has(key) and _last[key] != value:
-			_flash(row)
+			_flash_row(row)
 		_last[key] = value
 
 
-func _flash(node: Control) -> void:
+func _flash_row(node: Control) -> void:
 	node.modulate = Color(1.8, 1.8, 1.8)
 	create_tween().tween_property(node, "modulate", Color.WHITE, 0.4)
