@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://c23eox4pehv1y"]
 
 [ext_resource type="Texture2D" uid="uid://d0ryf5bjc1byr" path="res://moonless_godot_assets/sceny/scene_cathedral.jpg" id="1_m3x2c"]
+[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="2_e4suv"]
+[ext_resource type="Texture2D" uid="uid://bj8vwfat2gmem" path="res://moonless_godot_assets/ui/lektvar_cerveny.png" id="2_nnflg"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="3_e4suv"]
+[ext_resource type="Texture2D" uid="uid://bxmy5igachkux" path="res://moonless_godot_assets/ui/lektvar_modry.png" id="4_gtuw1"]
 
 [node name="Katedrala" type="Node2D" unique_id=98942501]
 
@@ -9,3 +13,64 @@ offset_top = -314.0
 offset_right = 1920.0
 offset_bottom = 1329.12
 texture = ExtResource("1_m3x2c")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=764980894]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=305310462]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1943595726]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_e4suv")
+theme_override_font_sizes/font_size = 80
+text = "Vyber si brochacho"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=25613159]
+layout_mode = 2
+alignment = 1
+
+[node name="BluePotion" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1187903522]
+layout_mode = 2
+texture_normal = ExtResource("4_gtuw1")
+script = ExtResource("3_e4suv")
+target_scene = "uid://dslwejgb6s06t"
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/BluePotion" unique_id=43596727]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 473.0
+offset_right = 25.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_e4suv")
+theme_override_font_sizes/font_size = 32
+text = "Zapomenout"
+horizontal_alignment = 1
+
+[node name="RedPotion" type="TextureButton" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=693396154]
+layout_mode = 2
+texture_normal = ExtResource("2_nnflg")
+script = ExtResource("3_e4suv")
+target_scene = "uid://c1eg3g367eub6"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/RedPotion" unique_id=317425793]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 472.0
+offset_right = 22.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_e4suv")
+theme_override_font_sizes/font_size = 32
+text = "Utéct"
+horizontal_alignment = 1
