@@ -14,12 +14,21 @@ const LINKS := {
 }
 
 const ASSETS := "res://moonless_godot_assets/"
-const PORTRAITS := {
-	"beta": "portrety/beta.png",
-	"hana": "portrety/hana.png",
-	"vitek": "portrety/vitek.png",
-	"morwen": "portrety/morwen.png",
+
+# Portréty postav ve složce PORTRAIT_FOLDER.
+const PORTRAIT_FOLDER := "res://moonless_godot_assets/portrety/"
+const PORTRAIT_FILES := {
+	"hana": "rybarka_hana.png",
+	"morwen": "morwen_carodejka.png",
+	"beta": "obchodnice_beta.png",
+	"vitek": "zpevak_vitek.png",
 }
+# Záloha: když soubor výše chybí, hledá se <id>.webp/.jpg/.jpeg/.png (např. hana.png)
+const PORTRAIT_EXTENSIONS := ["webp", "jpg", "jpeg", "png"]
+
+# Po skončení rozhovoru se hráč vrátí na mapu (pokud už na ní není).
+const RETURN_TO_MAP := true
+const MAP_SCENE := "res://map.tscn"
 const DARK_SIDE := ["vitek", "morwen"]   # tyhle postavy mají jméno bledě modře
 
 const C_NIGHT := Color("#0E1015")
@@ -54,6 +63,8 @@ func _ready() -> void:
 	_build()
 	GameState.glitch_gained.connect(_on_glitch_gained)
 	get_tree().node_added.connect(_on_node_added)
+	# Scéna, která už byla načtená před Dialogem (např. spuštění mapy přes F6)
+	_link_existing.call_deferred(get_tree().root)
 
 
 func _process(_delta: float) -> void:
@@ -79,7 +90,7 @@ func open(npc_id: String) -> void:
 	_text.text = _quote(npc["greeting"])
 	_narrator.text = ""
 	_narrator.hide()
-	_portrait.texture = _load(ASSETS + PORTRAITS.get(npc_id, ""))
+	_portrait.texture = _find_portrait(npc_id)
 	_action.text = npc["player_line"]
 	_action.show()
 	_leave.text = "Odejít"
@@ -91,6 +102,23 @@ func close() -> void:
 	_panel.hide()
 	is_open = false
 	current_npc = ""
+
+
+## Hráč rozhovor ukončil sám (Odejít / Pokračovat): zavřít a vrátit na mapu.
+func _on_leave_pressed() -> void:
+	close()
+	if not RETURN_TO_MAP:
+		return
+	# Když hra končí (smrt, katedrála), o další scéně rozhoduje GameState
+	if GameState.game_over or not GameState.running or GameState.comfort <= GameState.MIN_STAT:
+		return
+	var current := get_tree().current_scene
+	if current and current.scene_file_path == MAP_SCENE:
+		return
+	if ResourceLoader.exists(MAP_SCENE):
+		get_tree().change_scene_to_file.call_deferred(MAP_SCENE)
+	else:
+		push_warning("Dialog: mapa '%s' neexistuje, zkontrolujte MAP_SCENE" % MAP_SCENE)
 
 
 func _on_action_pressed() -> void:
@@ -108,11 +136,18 @@ func _on_action_pressed() -> void:
 
 
 func _on_node_added(node: Node) -> void:
-	if node is BaseButton and LINKS.has(String(node.name)):
+	if node is BaseButton and LINKS.has(String(node.name)) and not node.has_meta("_dialog_linked"):
+		node.set_meta("_dialog_linked", true)
 		var npc_id: String = LINKS[String(node.name)]
 		node.pressed.connect(func(): open(npc_id))
 		# Tlačítka postav jsou na mapě, takže vstup na mapu spustí hru
 		GameState.start.call_deferred()
+
+
+func _link_existing(node: Node) -> void:
+	_on_node_added(node)
+	for child in node.get_children():
+		_link_existing(child)
 
 
 func _on_glitch_gained(_amount: int) -> void:
@@ -127,6 +162,19 @@ func _on_glitch_gained(_amount: int) -> void:
 # ---------------------------------------------------------------- pomocné
 func _quote(s: String) -> String:
 	return "„" + s + "“"
+
+
+func _find_portrait(npc_id: String) -> Texture2D:
+	if PORTRAIT_FILES.has(npc_id):
+		var named: String = PORTRAIT_FOLDER + PORTRAIT_FILES[npc_id]
+		if ResourceLoader.exists(named):
+			return load(named)
+	for ext in PORTRAIT_EXTENSIONS:
+		var path: String = PORTRAIT_FOLDER + npc_id + "." + ext
+		if ResourceLoader.exists(path):
+			return load(path)
+	push_warning("Dialog: nenašel jsem portrét '%s' ve složce %s" % [npc_id, PORTRAIT_FOLDER])
+	return null
 
 
 func _load(path: String) -> Resource:
@@ -226,7 +274,7 @@ func _build() -> void:
 	_action.pressed.connect(_on_action_pressed)
 	buttons.add_child(_action)
 	_leave = _button(Color(0, 0, 0, 0), C_TEXT, C_STONE)
-	_leave.pressed.connect(close)
+	_leave.pressed.connect(_on_leave_pressed)
 	buttons.add_child(_leave)
 	_panel.hide()
 
