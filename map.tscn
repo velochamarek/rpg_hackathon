@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://bdn5rs1rtftwb"]
 
-[ext_resource type="FontFile" uid="uid://borrxqshpluu0" path="res://moonless_godot_assets/fonts/GrenzeGotisch.ttf" id="1_c7s6e"]
 [ext_resource type="Script" uid="uid://cbkik07pbs521" path="res://scripts/map.gd" id="1_wijl4"]
+[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="2_iw27f"]
 [ext_resource type="Texture2D" uid="uid://c6ohg2x8jj2rb" path="res://moonless_godot_assets/sceny/scene_village.jpg" id="3_p5pve"]
 [ext_resource type="FontFile" uid="uid://cnnfvpydg7m8c" path="res://moonless_godot_assets/fonts/Alegreya.ttf" id="4_urblq"]
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="5_iw27f"]
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="6_71pa8"]
+[ext_resource type="AudioStream" uid="uid://dgsu4rptvfdfx" path="res://audio/mapa_hudba.ogg" id="7_71pa8"]
 
 [node name="Map" type="Control" unique_id=372122502]
 layout_mode = 3
@@ -43,7 +44,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=498609125]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
-theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_fonts/font = ExtResource("2_iw27f")
 theme_override_font_sizes/font_size = 60
 text = "Mapa Vesnice"
 
@@ -65,7 +66,7 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_ves" unique_id=122078518]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
-theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_fonts/font = ExtResource("2_iw27f")
 theme_override_font_sizes/font_size = 38
 text = "Ves"
 
@@ -92,7 +93,7 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_pobrezi" unique_id=1822547032]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
-theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_fonts/font = ExtResource("2_iw27f")
 theme_override_font_sizes/font_size = 38
 text = "Pobřeží"
 
@@ -119,7 +120,7 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_les" unique_id=520999641]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
-theme_override_fonts/font = ExtResource("1_c7s6e")
+theme_override_fonts/font = ExtResource("2_iw27f")
 theme_override_font_sizes/font_size = 38
 text = "Les"
 
@@ -131,3 +132,8 @@ theme_override_fonts/font = ExtResource("4_urblq")
 theme_override_font_sizes/font_size = 25
 text = "Morwenina chýše na kraji lesa. Temná strana, kde hráč platí za pravdu."
 autowrap_mode = 3
+
+[node name="MapMusic" type="AudioStreamPlayer" parent="." unique_id=1125777317]
+stream = ExtResource("7_71pa8")
+volume_db = -10.0
+autoplay = true
