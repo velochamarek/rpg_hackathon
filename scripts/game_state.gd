@@ -96,4 +96,9 @@ func reset() -> void:
 	_offer_sent = false
 	_glitch_sent = false
 	stats_changed.emit()
-	running = true
+	running = false
+
+## Spustí odčítání komfortu a zobrazí HUD. Volá se při vstupu na mapu.
+func start() -> void:
+	if not running and not game_over:
+		running = true
