@@ -9,7 +9,12 @@ signal true_glitch_unlocked     # glitch dosáhl 10 -> pravý glitch jde najít
 
 const MIN_STAT := 0
 const MAX_STAT := 10
-const ENDING_SCENE := "res://ending.tscn"
+const ENDING_SCENES := {
+	"death": "res://endings/death.tscn",
+	"escape": "res://endings/escape.tscn",
+	"forget": "res://endings/forget.tscn",
+	"system": "res://endings/system.tscn",
+}
 
 # Startovní hodnoty
 const START_COMFORT := 6
@@ -76,8 +81,8 @@ func end_game(ending_id: String) -> void:
 	game_over = true
 	ending = ending_id
 	print("KONEC HRY: ", ending_id)
-	if ResourceLoader.exists(ENDING_SCENE):
-		get_tree().call_deferred("change_scene_to_file", ENDING_SCENE)
+	if ENDING_SCENES.has(ending_id):
+		get_tree().call_deferred("change_scene_to_file", ENDING_SCENES[ending_id])
 
 
 ## Nová hra - vrátí všechno na začátek.
