@@ -1,56 +1,47 @@
-[gd_scene format=3 uid="uid://ctp1l6f2via6t"]
+[gd_scene format=3 uid="uid://b0hpuyct2wpyi"]
 
 [ext_resource type="Texture2D" uid="uid://c6ohg2x8jj2rb" path="res://moonless_godot_assets/sceny/scene_village.jpg" id="1_5s8lq"]
-[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_i3jdt"]
+[ext_resource type="FontFile" uid="uid://c4x4u7qp50u2f" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Black.otf" id="2_i3jdt"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="3_lkb7b"]
 
-[node name="Ves" type="Control" unique_id=1326069768]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Pobrezi" type="Node2D" unique_id=25400125]
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1820187224]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1808356721]
+offset_top = -237.0
+offset_right = 1920.0
+offset_bottom = 1242.0
 texture = ExtResource("1_5s8lq")
-expand_mode = 1
-stretch_mode = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=17093225]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=976100582]
+offset_left = 874.0
+offset_top = 469.5
+offset_right = 1046.0
+offset_bottom = 610.5
 theme_override_constants/separation = 24
 
-[node name="DoUlicek" type="Button" parent="VBoxContainer" unique_id=1324928099]
+[node name="tlacitko_beta" type="Button" parent="VBoxContainer" unique_id=704457777]
 layout_mode = 2
-text = "Anselm"
-script = ExtResource("2_i3jdt")
-target_scene = "uid://cujcybpyobphq"
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_i3jdt")
+theme_override_font_sizes/font_size = 40
+text = "Jít za Bětou"
+script = ExtResource("3_lkb7b")
+target_scene = "uid://bfeil0xpwlmxu"
 
-[node name="KBetce" type="Button" parent="VBoxContainer" unique_id=1932504591]
+[node name="tlacitko_anselm" type="Button" parent="VBoxContainer" unique_id=920008253]
 layout_mode = 2
-text = "Beta"
-script = ExtResource("2_i3jdt")
-target_scene = "uid://fiol071mxlb5"
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_i3jdt")
+theme_override_font_sizes/font_size = 40
+text = "Jít za Anselmem"
+script = ExtResource("3_lkb7b")
+target_scene = "uid://byagyc5qyh5c6"
 
-[node name="NaMapu" type="Button" parent="VBoxContainer" unique_id=1961970665]
+[node name="tlacitko_zpet" type="Button" parent="VBoxContainer" unique_id=1215517721]
 layout_mode = 2
-text = "Zpět na mapu"
-script = ExtResource("2_i3jdt")
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_i3jdt")
+theme_override_font_sizes/font_size = 40
+text = "Zpět"
+script = ExtResource("3_lkb7b")
 target_scene = "uid://bdn5rs1rtftwb"

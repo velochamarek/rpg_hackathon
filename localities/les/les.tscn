@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="1_nwb8t"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_30flw"]
+[ext_resource type="FontFile" uid="uid://c4x4u7qp50u2f" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Black.otf" id="2_p5bje"]
 
 [node name="Les" type="Node2D" unique_id=2117383490]
 
@@ -18,20 +19,29 @@ offset_right = 1046.0
 offset_bottom = 610.5
 theme_override_constants/separation = 24
 
-[node name="DoUlicek" type="Button" parent="VBoxContainer" unique_id=1064997954]
+[node name="tlacitko_ezechiel" type="Button" parent="VBoxContainer" unique_id=1064997954]
 layout_mode = 2
-text = "Morwen"
-script = ExtResource("2_30flw")
-target_scene = "uid://cujcybpyobphq"
-
-[node name="KBetce" type="Button" parent="VBoxContainer" unique_id=1585291745]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_p5bje")
+theme_override_font_sizes/font_size = 40
 text = "Ezechiel"
 script = ExtResource("2_30flw")
-target_scene = "uid://fiol071mxlb5"
+target_scene = "uid://6darytf578di"
 
-[node name="NaMapu" type="Button" parent="VBoxContainer" unique_id=1430851465]
+[node name="tlacitko_morwen" type="Button" parent="VBoxContainer" unique_id=1585291745]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_p5bje")
+theme_override_font_sizes/font_size = 40
+text = "Morwen"
+script = ExtResource("2_30flw")
+target_scene = "uid://bdrqso8pvoppp"
+
+[node name="tlacitko_zpet" type="Button" parent="VBoxContainer" unique_id=1430851465]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_p5bje")
+theme_override_font_sizes/font_size = 40
 text = "Zpět na mapu"
 script = ExtResource("2_30flw")
 target_scene = "uid://bdn5rs1rtftwb"
