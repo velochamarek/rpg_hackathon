@@ -1,40 +1,38 @@
 extends CanvasLayer
-## MOONLESS – dialogové okno. Autoload s názvem "Dialog" (pod GameState a HUD).
-## Nic nepočítá: všechno (staty, podmínky, texty) bere z GameState.
+## MOONLESS – dialogové okno (verze 2). Autoload s názvem "Dialog" (pod GameState a HUD).
+## Nic nepočítá: všechno (staty, batoh, podmínky, texty) bere z GameState.
 ##
-## Samo se napojí na tlačítka podle jejich jména, jakmile se objeví ve scéně
-## (stačí mít tlačítka pojmenovaná podle LINKS níže). Při kliknutí otevře rozhovor.
+## Samo se napojí na každé tlačítko pojmenované  tlacitko_<id postavy>,
+## jakmile se objeví ve scéně:
+##   tlacitko_beta, tlacitko_anselm, tlacitko_hana,
+##   tlacitko_vitek, tlacitko_ezechiel, tlacitko_morwen
+## Na jedné obrazovce tak můžou být libovolné dvě (nebo víc) postavy.
 ## Ručně se dá rozhovor otevřít i odkudkoliv:  Dialog.open("hana")
 
-# Jméno tlačítka ve scéně -> id postavy v GameState.NPCS
-# Další postavu přidáte jedním řádkem, např.  "tlacitko_ves": "beta",
-const LINKS := {
-	# Tlačítka pojmenovaná podle postavy (fungují v jakékoli scéně, i na mapě)
-	"tlacitko_beta": "beta",
-	"tlacitko_hana": "hana",
-	"tlacitko_vitek": "vitek",
-	"tlacitko_morwen": "morwen",
-	"tlacitko_anselm": "anselm",
-	"tlacitko_ezechiel": "ezechiel",
-}
+const BUTTON_PREFIX := "tlacitko_"
 
 const ASSETS := "res://moonless_godot_assets/"
 
 # Portréty postav ve složce PORTRAIT_FOLDER.
 const PORTRAIT_FOLDER := "res://moonless_godot_assets/portrety/"
 const PORTRAIT_FILES := {
-	"hana": "rybarka_hana.png",
-	"morwen": "morwen_carodejka.png",
 	"beta": "obchodnice_beta.png",
-	"vitek": "zpevak_vitek.png",
 	"anselm": "knez_anselm.png",
+	"hana": "rybarka_hana.png",
+	"vitek": "zpevak_vitek.png",
 	"ezechiel": "prorok_ezechiel.png",
+	"morwen": "morwen_carodejka.png",
 }
 # Záloha: když soubor výše chybí, hledá se <id>.webp/.jpg/.jpeg/.png (např. hana.png)
 const PORTRAIT_EXTENSIONS := ["webp", "jpg", "jpeg", "png"]
 
-# Po skončení rozhovoru se hráč vrátí na mapu (pokud už na ní není).
-const RETURN_TO_MAP := true
+# Po skončení rozhovoru se hráč vrátí do scény, ve které na postavu klikl
+# (typicky výběr postav v lokaci). Když tlačítko postavy zároveň přepíná
+# do scény postavy (scene_button.gd), rozhovor se otevře tam a po jeho
+# skončení se hráč vrátí zpátky na výběr.
+const RETURN_TO_PREVIOUS := true
+# Starší chování: po rozhovoru vždy na mapu (použije se jen, když je RETURN_TO_PREVIOUS false)
+const RETURN_TO_MAP := false
 const MAP_SCENE := "res://map.tscn"
 const DARK_SIDE := ["vitek", "ezechiel", "morwen"]   # tyhle postavy mají jméno bledě modře
 
@@ -49,6 +47,7 @@ const C_GHOST := Color("#9FE6FF")
 const FLASH_ALPHA := 0.3
 
 var current_npc := ""
+var _return_scene := ""
 var is_open := false
 
 var _font_title: Font
@@ -58,7 +57,8 @@ var _portrait: TextureRect
 var _name: Label
 var _text: Label
 var _narrator: Label
-var _loot: Label          # "+1 ryba", "−1 ryba" pod odpovědí
+var _items_line: Label
+var _bag: Label
 var _action: Button
 var _leave: Button
 var _flash: ColorRect
@@ -93,13 +93,15 @@ func open(npc_id: String) -> void:
 	if not GameState.running:
 		return
 	current_npc = npc_id
+	var here := get_tree().current_scene
+	_return_scene = here.scene_file_path if here else ""
 	_name.text = npc["name"]
 	_name.add_theme_color_override("font_color", C_GHOST if npc_id in DARK_SIDE else C_GOLD)
 	_text.text = _quote(npc["greeting"])
 	_narrator.text = ""
 	_narrator.hide()
-	_loot.text = ""
-	_loot.hide()
+	_items_line.hide()
+	_update_bag()
 	_portrait.texture = _find_portrait(npc_id)
 	_action.text = npc["player_line"]
 	_action.show()
@@ -116,19 +118,20 @@ func close() -> void:
 
 ## Hráč rozhovor ukončil sám (Odejít / Pokračovat): zavřít a vrátit na mapu.
 func _on_leave_pressed() -> void:
+	var target := _return_scene if RETURN_TO_PREVIOUS else (MAP_SCENE if RETURN_TO_MAP else "")
 	close()
-	if not RETURN_TO_MAP:
+	if target == "":
 		return
 	# Když hra končí (smrt, katedrála), o další scéně rozhoduje GameState
 	if GameState.game_over or not GameState.running or GameState.comfort <= GameState.MIN_STAT:
 		return
 	var current := get_tree().current_scene
-	if current and current.scene_file_path == MAP_SCENE:
+	if current and current.scene_file_path == target:
 		return
-	if ResourceLoader.exists(MAP_SCENE):
-		get_tree().change_scene_to_file.call_deferred(MAP_SCENE)
+	if ResourceLoader.exists(target):
+		get_tree().change_scene_to_file.call_deferred(target)
 	else:
-		push_warning("Dialog: mapa '%s' neexistuje, zkontrolujte MAP_SCENE" % MAP_SCENE)
+		push_warning("Dialog: scéna '%s' neexistuje" % target)
 
 
 func _on_action_pressed() -> void:
@@ -141,20 +144,27 @@ func _on_action_pressed() -> void:
 	var narrator: String = result.get("narrator", "")
 	_narrator.text = narrator
 	_narrator.visible = narrator != ""
-	var loot: String = result.get("loot", "")
-	_loot.text = loot
-	_loot.visible = loot != ""
+	var item_changes: String = result.get("items", "")
+	_items_line.text = item_changes
+	_items_line.visible = item_changes != ""
+	_update_bag()
 	_action.hide()
 	_leave.text = "Pokračovat"
 
 
 func _on_node_added(node: Node) -> void:
-	if node is BaseButton and LINKS.has(String(node.name)) and not node.has_meta("_dialog_linked"):
-		node.set_meta("_dialog_linked", true)
-		var npc_id: String = LINKS[String(node.name)]
-		node.pressed.connect(func(): open(npc_id))
-		# Tlačítka postav jsou na mapě, takže vstup na mapu spustí hru
-		GameState.start.call_deferred()
+	if not (node is BaseButton) or node.has_meta("_dialog_linked"):
+		return
+	var button_name := String(node.name)
+	if not button_name.begins_with(BUTTON_PREFIX):
+		return
+	var npc_id := button_name.substr(BUTTON_PREFIX.length())
+	if not GameState.NPCS.has(npc_id):
+		return
+	node.set_meta("_dialog_linked", true)
+	node.pressed.connect(func(): open(npc_id))
+	# Tlačítka postav jsou jen ve hře, takže když se objeví, hra běží
+	GameState.start.call_deferred()
 
 
 func _link_existing(node: Node) -> void:
@@ -173,6 +183,10 @@ func _on_glitch_gained(_amount: int) -> void:
 
 
 # ---------------------------------------------------------------- pomocné
+func _update_bag() -> void:
+	_bag.text = "Batoh: " + GameState.items_text()
+
+
 func _quote(s: String) -> String:
 	return "„" + s + "“"
 
@@ -276,8 +290,8 @@ func _build() -> void:
 	_narrator.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_narrator.custom_minimum_size = Vector2(300, 0)
 	col.add_child(_narrator)
-	_loot = _label(_font_body, 20, C_AMBER)
-	col.add_child(_loot)
+	_items_line = _label(_font_body, 20, C_AMBER)
+	col.add_child(_items_line)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	col.add_child(spacer)
@@ -291,6 +305,12 @@ func _build() -> void:
 	_leave = _button(Color(0, 0, 0, 0), C_TEXT, C_STONE)
 	_leave.pressed.connect(_on_leave_pressed)
 	buttons.add_child(_leave)
+	var push := Control.new()
+	push.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	buttons.add_child(push)
+	_bag = _label(_font_body, 19, C_TEXT)
+	_bag.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	buttons.add_child(_bag)
 	_panel.hide()
 
 	_flash = ColorRect.new()

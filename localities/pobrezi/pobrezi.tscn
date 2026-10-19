@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="1_7h2o0"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_enfct"]
+[ext_resource type="FontFile" uid="uid://c4x4u7qp50u2f" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Black.otf" id="2_lecq5"]
 
 [node name="Pobrezi" type="Node2D" unique_id=25400125]
 
@@ -18,20 +19,29 @@ offset_right = 1046.0
 offset_bottom = 610.5
 theme_override_constants/separation = 24
 
-[node name="tlacitko_hana" type="Button" parent="VBoxContainer" unique_id=845842197]
+[node name="tlacitko_hana" type="Button" parent="VBoxContainer" unique_id=704457777]
 layout_mode = 2
-text = "Hana"
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_lecq5")
+theme_override_font_sizes/font_size = 40
+text = "Jít za Hanou"
 script = ExtResource("2_enfct")
 target_scene = "uid://dieyjsr4l3wfl"
 
-[node name="KBetce" type="Button" parent="VBoxContainer" unique_id=778081499]
+[node name="tlacitko_vitek" type="Button" parent="VBoxContainer" unique_id=920008253]
 layout_mode = 2
-text = "Vitek"
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_lecq5")
+theme_override_font_sizes/font_size = 40
+text = "Jít za Vítkem"
 script = ExtResource("2_enfct")
-target_scene = "uid://cnrjqdfhwy8n6"
+target_scene = "uid://ba1ghr5tfuc5m"
 
-[node name="NaMapu" type="Button" parent="VBoxContainer" unique_id=2025685305]
+[node name="tlacitko_zpet" type="Button" parent="VBoxContainer" unique_id=1215517721]
 layout_mode = 2
-text = "Zpět na mapu"
+theme_override_colors/font_color = Color(0.8666667, 0.91764706, 0.48235294, 1)
+theme_override_fonts/font = ExtResource("2_lecq5")
+theme_override_font_sizes/font_size = 40
+text = "Jít zpět"
 script = ExtResource("2_enfct")
 target_scene = "uid://bdn5rs1rtftwb"
