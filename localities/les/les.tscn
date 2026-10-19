@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cbiql3rqqxbtu"]
+
+[ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="1_nwb8t"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_30flw"]
+
+[node name="Les" type="Node2D" unique_id=2117383490]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1758932874]
+offset_top = -700.0
+offset_right = 1920.0
+offset_bottom = 1475.342
+texture = ExtResource("1_nwb8t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=545422315]
+offset_left = 874.0
+offset_top = 469.5
+offset_right = 1046.0
+offset_bottom = 610.5
+theme_override_constants/separation = 24
+
+[node name="DoUlicek" type="Button" parent="VBoxContainer" unique_id=1064997954]
+layout_mode = 2
+text = "Morwen"
+script = ExtResource("2_30flw")
+target_scene = "uid://cujcybpyobphq"
+
+[node name="KBetce" type="Button" parent="VBoxContainer" unique_id=1585291745]
+layout_mode = 2
+text = "Ezechiel"
+script = ExtResource("2_30flw")
+target_scene = "uid://fiol071mxlb5"
+
+[node name="NaMapu" type="Button" parent="VBoxContainer" unique_id=1430851465]
+layout_mode = 2
+text = "Zpět na mapu"
+script = ExtResource("2_30flw")
+target_scene = "uid://bdn5rs1rtftwb"

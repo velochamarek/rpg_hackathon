@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://cujcybpyobphq"]
+[gd_scene format=3 uid="uid://dxpxudea6miqd"]
 
-[ext_resource type="Texture2D" uid="uid://ddm1w4hapk8vb" path="res://img/vitek.png" id="1_5ufsj"]
-[ext_resource type="Script" uid="uid://3gcc3gy2ctrr" path="res://localities/ulicky.gd" id="1_ytlpj"]
-[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="3_edwy5"]
-[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="4_15qxj"]
+[ext_resource type="Script" uid="uid://3gcc3gy2ctrr" path="res://localities/ves/kostel.gd" id="1_720k0"]
+[ext_resource type="Texture2D" uid="uid://ddm1w4hapk8vb" path="res://img/vitek.png" id="2_88ome"]
+[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="3_7io0s"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="4_iayyy"]
 
 [node name="Ulicky" type="Control" unique_id=625058664]
 layout_mode = 3
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ytlpj")
+script = ExtResource("1_720k0")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1267922953]
 layout_mode = 1
@@ -30,7 +30,7 @@ offset_top = 83.0
 offset_right = 1400.0
 offset_bottom = 1071.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("1_5ufsj")
+texture_normal = ExtResource("2_88ome")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -50,7 +50,7 @@ layout_mode = 2
 [node name="Jmeno" type="Label" parent="Dialog/VBox" unique_id=1668578287]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
-theme_override_fonts/font = ExtResource("3_edwy5")
+theme_override_fonts/font = ExtResource("3_7io0s")
 theme_override_font_sizes/font_size = 49
 text = "Vítek"
 
@@ -82,10 +82,10 @@ offset_left = 1598.0
 offset_top = 988.0
 offset_right = 1907.0
 offset_bottom = 1083.0
-theme_override_fonts/font = ExtResource("3_edwy5")
+theme_override_fonts/font = ExtResource("3_7io0s")
 theme_override_font_sizes/font_size = 52
 text = "Odejít"
-script = ExtResource("4_15qxj")
+script = ExtResource("4_iayyy")
 target_scene = "uid://ctp1l6f2via6t"
 
 [node name="Zpev" type="AudioStreamPlayer" parent="." unique_id=1300461576]

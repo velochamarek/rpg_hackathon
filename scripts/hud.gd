@@ -19,12 +19,22 @@ const FLASH_ALPHA := 0.35              # síla modrého probliknutí při glitch
 
 var _base_colors := {}
 var _last := {}
+var _inventory: Label    # řádek "Batoh: …" (uzel Panel/VBox/Inventory, nebo se vytvoří sám)
 
 
 func _ready() -> void:
 	for key in rows:
 		var name_label: Label = rows[key].get_node("Name")
 		_base_colors[key] = name_label.get_theme_color("font_color")
+	_inventory = get_node_or_null("Panel/VBox/Inventory")
+	if _inventory == null:
+		# Když ve scéně hud.tscn label "Inventory" není, vytvoří se tady.
+		# Chcete-li ho upravovat v editoru, přidejte do Panel/VBox Label s názvem Inventory.
+		_inventory = Label.new()
+		_inventory.name = "Inventory"
+		_inventory.add_theme_font_size_override("font_size", 20)
+		_inventory.add_theme_color_override("font_color", Color("d8c9a3"))
+		$Panel/VBox.add_child(_inventory)
 	GameState.stats_changed.connect(_update)
 	_update()
 
@@ -60,6 +70,13 @@ func _update() -> void:
 		if _last.has(key) and _last[key] != value:
 			_flash_row(row)
 		_last[key] = value
+
+
+	var inv: String = GameState.inventory_text()
+	var inv_text := "Batoh: " + (inv if inv != "" else "prázdný")
+	if _inventory.text != inv_text and _inventory.text != "":
+		_flash_row(_inventory)
+	_inventory.text = inv_text
 
 
 func _flash_row(node: Control) -> void:

@@ -6,6 +6,8 @@ KOMFORT je tvoje síla. Každý rozhovor tě trochu vyčerpá. Když klesne na n
 
 REPUTACE určuje, kdo s tebou bude mluvit. Někdo se baví jen se slušnými lidmi, jiný jen s vyvrženci.
 
+RYBY jsou jediné platidlo ve vsi. Za práci je dostaneš, za jídlo, světlo i tajemství je zase dáš.
+
 GLITCH… zatím nedává smysl. Všímej si, co ve světě nesedí.
 
 Klikni na postavu a promluv si s ní."""

@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://fiol071mxlb5"]
+
+[ext_resource type="Script" uid="uid://fwnfrorqhhjs" path="res://localities/ves/betka.gd" id="1_o4qwx"]
+[ext_resource type="Texture2D" uid="uid://cnyd6vsld5t6n" path="res://img/betka.png" id="2_c01xj"]
+[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="3_hygmn"]
+[ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Regular.otf" id="4_gj213"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="5_rnisr"]
+
+[node name="Obchod" type="Control" unique_id=1804782430]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o4qwx")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1376884460]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05490196, 0.0627451, 0.08235294, 1)
+
+[node name="Pult" type="ColorRect" parent="." unique_id=1100145444]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -252.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.23137255, 0.16470589, 0.12156863, 1)
+
+[node name="Betka" type="TextureRect" parent="." unique_id=577808913]
+layout_mode = 0
+offset_left = 433.0
+offset_top = -301.0
+offset_right = 1503.0
+offset_bottom = 931.0
+texture = ExtResource("2_c01xj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Chleba" type="Button" parent="." unique_id=1067910346]
+layout_mode = 0
+offset_left = 784.0
+offset_top = 930.0
+offset_right = 1110.0
+offset_bottom = 1062.0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_hygmn")
+theme_override_font_sizes/font_size = 38
+text = "Koupit chléb"
+
+[node name="Dialog" type="PanelContainer" parent="." unique_id=89016163]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 6.0
+offset_top = 48.0
+offset_right = -2.0
+offset_bottom = 267.0
+grow_horizontal = 2
+
+[node name="VBox" type="VBoxContainer" parent="Dialog" unique_id=1387322636]
+layout_mode = 2
+
+[node name="Jmeno" type="Label" parent="Dialog/VBox" unique_id=794344550]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9490196, 0.76862746, 0.42745098, 1)
+theme_override_fonts/font = ExtResource("3_hygmn")
+theme_override_font_sizes/font_size = 50
+text = "Bětka"
+
+[node name="Rec" type="Label" parent="Dialog/VBox" unique_id=2002599276]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_fonts/font = ExtResource("4_gj213")
+theme_override_font_sizes/font_size = 28
+autowrap_mode = 2
+
+[node name="Odejít" type="Button" parent="." unique_id=613483997]
+layout_mode = 0
+offset_left = 1704.0
+offset_top = 973.0
+offset_right = 1901.0
+offset_bottom = 1064.0
+theme_override_fonts/font = ExtResource("3_hygmn")
+theme_override_font_sizes/font_size = 33
+text = "Odejít"
+script = ExtResource("5_rnisr")
+target_scene = "uid://ctp1l6f2via6t"
