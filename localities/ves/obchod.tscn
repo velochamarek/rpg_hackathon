@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://fiol071mxlb5"]
 
 [ext_resource type="Texture2D" uid="uid://cnyd6vsld5t6n" path="res://img/betka.png" id="1_r1bkd"]
-[ext_resource type="Script" uid="uid://fwnfrorqhhjs" path="res://localities/obchod.gd" id="1_sefev"]
+[ext_resource type="Script" uid="uid://fwnfrorqhhjs" path="res://localities/ves/obchod.gd" id="1_sefev"]
 [ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Regular.otf" id="3_iha5r"]
 [ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="3_sefev"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="4_72o2a"]

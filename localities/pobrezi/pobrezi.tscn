@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://n8872pntmlh5"]
+
+[ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="1_7h2o0"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_enfct"]
+
+[node name="Pobrezi" type="Node2D" unique_id=25400125]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1808356721]
+offset_top = -237.0
+offset_right = 1920.0
+offset_bottom = 1242.0
+texture = ExtResource("1_7h2o0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=976100582]
+offset_left = 874.0
+offset_top = 469.5
+offset_right = 1046.0
+offset_bottom = 610.5
+theme_override_constants/separation = 24
+
+[node name="DoUlicek" type="Button" parent="VBoxContainer" unique_id=845842197]
+layout_mode = 2
+text = "Hana"
+script = ExtResource("2_enfct")
+target_scene = "uid://dieyjsr4l3wfl"
+
+[node name="KBetce" type="Button" parent="VBoxContainer" unique_id=778081499]
+layout_mode = 2
+text = "Vitek"
+script = ExtResource("2_enfct")
+
+[node name="NaMapu" type="Button" parent="VBoxContainer" unique_id=2025685305]
+layout_mode = 2
+text = "Zpět na mapu"
+script = ExtResource("2_enfct")
+target_scene = "uid://bdn5rs1rtftwb"

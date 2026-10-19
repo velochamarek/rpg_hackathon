@@ -39,13 +39,13 @@ theme_override_constants/separation = 24
 
 [node name="DoUlicek" type="Button" parent="VBoxContainer" unique_id=1324928099]
 layout_mode = 2
-text = "Do temných uliček"
+text = "Anselm"
 script = ExtResource("2_172ab")
 target_scene = "uid://cujcybpyobphq"
 
 [node name="KBetce" type="Button" parent="VBoxContainer" unique_id=1932504591]
 layout_mode = 2
-text = "K Betce do obchůdku"
+text = "Beta"
 script = ExtResource("2_172ab")
 target_scene = "uid://fiol071mxlb5"
 

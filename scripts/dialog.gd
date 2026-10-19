@@ -9,8 +9,13 @@ extends CanvasLayer
 # Jméno tlačítka ve scéně -> id postavy v GameState.NPCS
 # Další postavu přidáte jedním řádkem, např.  "tlacitko_ves": "beta",
 const LINKS := {
-	"tlacitko_pobrezi": "hana",
-	"tlacitko_les": "morwen",
+	# Tlačítka pojmenovaná podle postavy (fungují v jakékoli scéně, i na mapě)
+	"tlacitko_beta": "beta",
+	"tlacitko_hana": "hana",
+	"tlacitko_vitek": "vitek",
+	"tlacitko_morwen": "morwen",
+	"tlacitko_anselm": "anselm",
+	"tlacitko_ezechiel": "ezechiel",
 }
 
 const ASSETS := "res://moonless_godot_assets/"
@@ -22,6 +27,8 @@ const PORTRAIT_FILES := {
 	"morwen": "morwen_carodejka.png",
 	"beta": "obchodnice_beta.png",
 	"vitek": "zpevak_vitek.png",
+	"anselm": "knez_anselm.png",
+	"ezechiel": "prorok_ezechiel.png",
 }
 # Záloha: když soubor výše chybí, hledá se <id>.webp/.jpg/.jpeg/.png (např. hana.png)
 const PORTRAIT_EXTENSIONS := ["webp", "jpg", "jpeg", "png"]
@@ -29,7 +36,7 @@ const PORTRAIT_EXTENSIONS := ["webp", "jpg", "jpeg", "png"]
 # Po skončení rozhovoru se hráč vrátí na mapu (pokud už na ní není).
 const RETURN_TO_MAP := true
 const MAP_SCENE := "res://map.tscn"
-const DARK_SIDE := ["vitek", "morwen"]   # tyhle postavy mají jméno bledě modře
+const DARK_SIDE := ["vitek", "ezechiel", "morwen"]   # tyhle postavy mají jméno bledě modře
 
 const C_NIGHT := Color("#0E1015")
 const C_PANEL := Color("#15171D")
@@ -51,6 +58,7 @@ var _portrait: TextureRect
 var _name: Label
 var _text: Label
 var _narrator: Label
+var _loot: Label          # "+1 ryba", "−1 ryba" pod odpovědí
 var _action: Button
 var _leave: Button
 var _flash: ColorRect
@@ -90,6 +98,8 @@ func open(npc_id: String) -> void:
 	_text.text = _quote(npc["greeting"])
 	_narrator.text = ""
 	_narrator.hide()
+	_loot.text = ""
+	_loot.hide()
 	_portrait.texture = _find_portrait(npc_id)
 	_action.text = npc["player_line"]
 	_action.show()
@@ -131,6 +141,9 @@ func _on_action_pressed() -> void:
 	var narrator: String = result.get("narrator", "")
 	_narrator.text = narrator
 	_narrator.visible = narrator != ""
+	var loot: String = result.get("loot", "")
+	_loot.text = loot
+	_loot.visible = loot != ""
 	_action.hide()
 	_leave.text = "Pokračovat"
 
@@ -263,6 +276,8 @@ func _build() -> void:
 	_narrator.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_narrator.custom_minimum_size = Vector2(300, 0)
 	col.add_child(_narrator)
+	_loot = _label(_font_body, 20, C_AMBER)
+	col.add_child(_loot)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	col.add_child(spacer)
