@@ -1,10 +1,42 @@
-[gd_scene format=3 uid="uid://fiol071mxlb5"]
+[gd_scene format=3 uid="uid://bdqigqdujsj15"]
 
 [ext_resource type="Texture2D" uid="uid://cnyd6vsld5t6n" path="res://img/betka.png" id="1_r1bkd"]
-[ext_resource type="Script" uid="uid://fwnfrorqhhjs" path="res://localities/ves/obchod.gd" id="1_sefev"]
 [ext_resource type="FontFile" uid="uid://fm5x1fa7l2qr" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Regular.otf" id="3_iha5r"]
 [ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="3_sefev"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="4_72o2a"]
+
+[sub_resource type="GDScript" id="GDScript_2cs18"]
+script/source = "extends Control
+## Betčin obchůdek: kliknutím na chleba si hráč koupí jídlo.
+## Pravidla (reputace ≥ 60, +30 komfortu, −5 glitche, −2 za interakci) řeší GameState.
+
+const DEKUJI := \"Děkuji, přijď zas.\"
+
+@onready var rec: Label = $Dialog/VBox/Rec
+@onready var chleba: BaseButton = $Chleba
+
+
+func _ready() -> void:
+	GameState.start()   # aby šlo testovat i přes F6
+	rec.text = GameState.get_npc(\"beta\").greeting
+	chleba.pressed.connect(_on_chleba)
+
+
+func _on_chleba() -> void:
+	var result: Dictionary = GameState.interact(\"beta\")
+	if result.is_empty():
+		return
+	if result.success:
+		rec.text = DEKUJI
+	else:
+		rec.text = result.text   # „Neznám tě dost dobře… Hana u moře…“
+
+	# krátká pauza proti dvojkliku
+	chleba.disabled = true
+	await get_tree().create_timer(0.6).timeout
+	if is_instance_valid(chleba):
+		chleba.disabled = false
+"
 
 [node name="Obchod" type="Control" unique_id=1804782430]
 layout_mode = 3
@@ -13,7 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_sefev")
+script = SubResource("GDScript_2cs18")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1376884460]
 layout_mode = 1

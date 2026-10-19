@@ -1,3 +1,90 @@
-[gd_scene format=3 uid="uid://7y78wj1nld06"]
+[gd_scene format=3 uid="uid://cnrjqdfhwy8n6"]
 
-[node name="Vitek" type="Node2D" unique_id=1951436158]
+[ext_resource type="Script" uid="uid://3gcc3gy2ctrr" path="res://localities/ves/kostel.gd" id="1_yytbm"]
+[ext_resource type="Texture2D" uid="uid://ddm1w4hapk8vb" path="res://img/vitek.png" id="2_fhrdg"]
+[ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="2_q4c0q"]
+[ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="3_3iprc"]
+[ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="4_mggv3"]
+
+[node name="Vitek" type="Control" unique_id=625058664]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yytbm")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=842643240]
+layout_mode = 0
+offset_top = -237.0
+offset_right = 1920.0
+offset_bottom = 1242.0
+texture = ExtResource("2_q4c0q")
+
+[node name="Vitek" type="TextureButton" parent="." unique_id=1462411469]
+layout_mode = 0
+offset_left = 607.0
+offset_top = 83.0
+offset_right = 1400.0
+offset_bottom = 1071.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_fhrdg")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Dialog" type="PanelContainer" parent="." unique_id=687180836]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -155.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBox" type="VBoxContainer" parent="Dialog" unique_id=357515806]
+layout_mode = 2
+
+[node name="Jmeno" type="Label" parent="Dialog/VBox" unique_id=1668578287]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_fonts/font = ExtResource("3_3iprc")
+theme_override_font_sizes/font_size = 49
+text = "Vítek"
+
+[node name="Text" type="Label" parent="Dialog/VBox" unique_id=1577414551]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84705883, 0.7882353, 0.6392157, 1)
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 2
+
+[node name="Vypravec" type="Label" parent="Dialog/VBox" unique_id=249239228]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62352943, 0.9019608, 1, 1)
+autowrap_mode = 2
+
+[node name="Volby" type="HBoxContainer" parent="Dialog/VBox" unique_id=1387002706]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Zazpivej" type="Button" parent="Dialog/VBox/Volby" unique_id=1862071628]
+layout_mode = 2
+
+[node name="Zavrit" type="Button" parent="Dialog/VBox/Volby" unique_id=490410449]
+layout_mode = 2
+
+[node name="Odejit" type="Button" parent="." unique_id=251013628]
+layout_mode = 0
+offset_left = 1598.0
+offset_top = 988.0
+offset_right = 1907.0
+offset_bottom = 1083.0
+theme_override_fonts/font = ExtResource("3_3iprc")
+theme_override_font_sizes/font_size = 52
+text = "Odejít"
+script = ExtResource("4_mggv3")
+target_scene = "uid://n8872pntmlh5"
+
+[node name="Zpev" type="AudioStreamPlayer" parent="." unique_id=1300461576]

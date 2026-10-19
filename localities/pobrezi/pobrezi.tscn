@@ -18,7 +18,7 @@ offset_right = 1046.0
 offset_bottom = 610.5
 theme_override_constants/separation = 24
 
-[node name="DoUlicek" type="Button" parent="VBoxContainer" unique_id=845842197]
+[node name="tlacitko_hana" type="Button" parent="VBoxContainer" unique_id=845842197]
 layout_mode = 2
 text = "Hana"
 script = ExtResource("2_enfct")
@@ -28,6 +28,7 @@ target_scene = "uid://dieyjsr4l3wfl"
 layout_mode = 2
 text = "Vitek"
 script = ExtResource("2_enfct")
+target_scene = "uid://cnrjqdfhwy8n6"
 
 [node name="NaMapu" type="Button" parent="VBoxContainer" unique_id=2025685305]
 layout_mode = 2

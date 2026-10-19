@@ -1,3 +1,11 @@
 [gd_scene format=3 uid="uid://dieyjsr4l3wfl"]
 
+[ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="1_532ee"]
+
 [node name="Hana" type="Node2D" unique_id=1824119760]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=576378082]
+offset_top = -237.0
+offset_right = 1920.0
+offset_bottom = 1242.0
+texture = ExtResource("1_532ee")
