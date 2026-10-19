@@ -1,14 +1,20 @@
 [gd_scene format=3 uid="uid://6darytf578di"]
 
-[ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="1_wsoeh"]
+[ext_resource type="Texture2D" uid="uid://2win6ynf1ybv" path="res://moonless_godot_assets/sceny/kvalitnejsi/forest.jpg" id="1_ag0yb"]
 
 [node name="Les2" type="Node2D" unique_id=2117383490]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1758932874]
-offset_top = -700.0
-offset_right = 1920.0
-offset_bottom = 1475.342
-texture = ExtResource("1_wsoeh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 4.0
+offset_right = 1941.0
+offset_bottom = 1086.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ag0yb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=545422315]
 offset_left = 874.0

@@ -1,11 +1,17 @@
 [gd_scene format=3 uid="uid://ba1ghr5tfuc5m"]
 
-[ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="2_q4c0q"]
+[ext_resource type="Texture2D" uid="uid://d2gnfihnmf35d" path="res://moonless_godot_assets/sceny/kvalitnejsi/coast.jpg" id="1_4wwpb"]
 
 [node name="Hana" type="Node2D" unique_id=1824119760]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=576378082]
-offset_top = -237.0
-offset_right = 1920.0
-offset_bottom = 1242.0
-texture = ExtResource("2_q4c0q")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -246.0
+offset_top = -253.0
+offset_right = 3327.0
+offset_bottom = 1904.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4wwpb")

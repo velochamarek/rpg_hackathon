@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c23eox4pehv1y"]
 
-[ext_resource type="Texture2D" uid="uid://d0ryf5bjc1byr" path="res://moonless_godot_assets/sceny/scene_cathedral.jpg" id="1_m3x2c"]
+[ext_resource type="Texture2D" uid="uid://bp6t6qqtjug6m" path="res://moonless_godot_assets/sceny/kvalitnejsi/castle.jpg" id="1_l1jmk"]
 [ext_resource type="FontFile" uid="uid://crboc4g1f5s6j" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Bold.otf" id="2_e4suv"]
 [ext_resource type="Texture2D" uid="uid://bj8vwfat2gmem" path="res://moonless_godot_assets/ui/lektvar_cerveny.png" id="2_nnflg"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="3_e4suv"]
@@ -9,10 +9,16 @@
 [node name="Katedrala" type="Node2D" unique_id=98942501]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=991255167]
-offset_top = -314.0
-offset_right = 1920.0
-offset_bottom = 1329.12
-texture = ExtResource("1_m3x2c")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 2271.0
+offset_bottom = 1160.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_l1jmk")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=764980894]
 offset_right = 1920.0
