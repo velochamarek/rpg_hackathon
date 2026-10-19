@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bdrqso8pvoppp"]
 
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="1_pykme"]
+[ext_resource type="PackedScene" path="res://pochoden.tscn" id="2_pykme"]
 
 [node name="Les" type="Node2D" unique_id=2117383490]
 
@@ -16,3 +17,9 @@ offset_top = 469.5
 offset_right = 1046.0
 offset_bottom = 610.5
 theme_override_constants/separation = 24
+
+[node name="Pochoden" parent="." unique_id=1826632485 instance=ExtResource("2_pykme")]
+position = Vector2(919, 429)
+
+[node name="Pochoden2" parent="." unique_id=964226243 instance=ExtResource("2_pykme")]
+position = Vector2(1223, 346)

@@ -1,8 +1,55 @@
 [gd_scene format=3 uid="uid://n8872pntmlh5"]
 
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="1_7h2o0"]
+[ext_resource type="Script" uid="uid://ikwv4iimx83e" path="res://scripts/mlha.gd" id="2_5tgrv"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_enfct"]
 [ext_resource type="FontFile" uid="uid://c4x4u7qp50u2f" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Black.otf" id="2_lecq5"]
+
+[sub_resource type="Shader" id="Shader_5tgrv"]
+code = "
+shader_type canvas_item;
+uniform vec4 barva : source_color = vec4(0.82, 0.86, 0.93, 1.0);
+uniform float hustota = 0.75;
+uniform float vyska = 0.7;
+uniform float rychlost = 0.12;
+uniform float meritko = 2.5;
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	f = f * f * (3.0 - 2.0 * f);
+	return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+	           mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+float fbm(vec2 p) {
+	float v = 0.0;
+	float a = 0.5;
+	for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.0; a *= 0.5; }
+	return v;
+}
+void fragment() {
+	vec2 p = vec2(UV.x * 1.78, UV.y) * meritko;
+	float t = TIME * rychlost;
+	// tři vrstvy: velké pomalé valy, střední chuchvalce a rychlé cáry proti nim
+	float valy = fbm(p * 0.6 + vec2(t * 0.6, sin(TIME * 0.25) * 0.2));
+	float chuch = fbm(p + vec2(t, sin(TIME * 0.4) * 0.15));
+	float cary = fbm(p * 1.8 - vec2(t * 2.2, t * 0.5));
+	float celkem = valy * 0.45 + chuch * 0.4 + cary * 0.35;
+	float chuchvalce = smoothstep(0.32, 0.72, celkem);
+	float dech = 0.82 + 0.18 * sin(TIME * 0.9);          // mlha pomalu \"dýchá\"
+	float zdola = smoothstep(1.0 - vyska - 0.3, 1.0 - vyska + 0.3, UV.y);
+	COLOR = vec4(barva.rgb, barva.a * chuchvalce * hustota * zdola * dech);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2oy24"]
+shader = SubResource("Shader_5tgrv")
+shader_parameter/barva = Color(0.75, 0.8, 0.88, 1)
+shader_parameter/hustota = 0.45
+shader_parameter/vyska = 0.55
+shader_parameter/rychlost = 0.03
+shader_parameter/meritko = 3.0
 
 [node name="Pobrezi" type="Node2D" unique_id=25400125]
 
@@ -11,6 +58,18 @@ offset_top = -237.0
 offset_right = 1920.0
 offset_bottom = 1242.0
 texture = ExtResource("1_7h2o0")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1122354919]
+material = SubResource("ShaderMaterial_2oy24")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+script = ExtResource("2_5tgrv")
+barva = Color(0.75, 0.8, 0.88, 1)
+hustota = 0.45
+vyska = 0.55
+rychlost = 0.03
+velikost_chuchvalcu = 3.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=976100582]
 offset_left = 874.0

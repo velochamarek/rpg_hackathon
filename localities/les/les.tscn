@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c8yrw7jb4bjq1" path="res://moonless_godot_assets/sceny/scene_forest.jpg" id="1_nwb8t"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_30flw"]
 [ext_resource type="FontFile" uid="uid://c4x4u7qp50u2f" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Black.otf" id="2_p5bje"]
+[ext_resource type="PackedScene" path="res://pochoden.tscn" id="4_p5bje"]
 
 [node name="Les" type="Node2D" unique_id=2117383490]
 
@@ -45,3 +46,9 @@ theme_override_font_sizes/font_size = 40
 text = "Zpět na mapu"
 script = ExtResource("2_30flw")
 target_scene = "uid://bdn5rs1rtftwb"
+
+[node name="Pochoden" parent="." unique_id=301917041 instance=ExtResource("4_p5bje")]
+position = Vector2(919, 429)
+
+[node name="Pochoden2" parent="." unique_id=1855975692 instance=ExtResource("4_p5bje")]
+position = Vector2(1223, 346)
