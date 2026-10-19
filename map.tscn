@@ -66,7 +66,7 @@ texture_normal = ExtResource("3_p5pve")
 ignore_texture_size = true
 stretch_mode = 6
 script = ExtResource("4_05x41")
-target_scene = "uid://ctp1l6f2via6t"
+target_scene = "uid://b0hpuyct2wpyi"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/místa/karta_ves" unique_id=122078518]
 layout_mode = 2

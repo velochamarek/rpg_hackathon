@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bfeil0xpwlmxu"]
+
+[ext_resource type="Texture2D" uid="uid://c6ohg2x8jj2rb" path="res://moonless_godot_assets/sceny/scene_village.jpg" id="1_bvrgs"]
+
+[node name="Hana" type="Node2D" unique_id=1824119760]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=576378082]
+offset_top = -237.0
+offset_right = 1920.0
+offset_bottom = 1242.0
+texture = ExtResource("1_bvrgs")
