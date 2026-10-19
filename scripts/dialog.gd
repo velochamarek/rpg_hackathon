@@ -97,7 +97,7 @@ func open(npc_id: String) -> void:
 	_return_scene = here.scene_file_path if here else ""
 	_name.text = npc["name"]
 	_name.add_theme_color_override("font_color", C_GHOST if npc_id in DARK_SIDE else C_GOLD)
-	_text.text = _quote(npc["greeting"])
+	_text.text = _quote(Pozdravy.text(npc_id))
 	_narrator.text = ""
 	_narrator.hide()
 	_items_line.hide()
