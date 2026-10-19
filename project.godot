@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*uid://df2r275aps134"
-HUD="*uid://dh0xlpd6my7pu"
-Dialog="*uid://qjrnusdxy66q"
+GameState="*res://scripts/game_state.gd"
+HUD="*res://hud.tscn"
+Dialog="*res://scripts/dialog.gd"
 
 [display]
 
