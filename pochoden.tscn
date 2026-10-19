@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/castice.gd" id="1_cast"]
+[ext_resource type="Script" path="res://scripts/plamen.gd" id="2_plam"]
+
+[node name="Pochoden" type="Node2D"]
+
+[node name="Zare" type="Sprite2D" parent="."]
+script = ExtResource("2_plam")
+
+[node name="Plamen" type="CPUParticles2D" parent="."]
+script = ExtResource("1_cast")
+druh = 0
+
+[node name="Jiskry" type="CPUParticles2D" parent="."]
+position = Vector2(0, -10)
+script = ExtResource("1_cast")
+druh = 1

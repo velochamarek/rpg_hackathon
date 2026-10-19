@@ -1,8 +1,59 @@
 [gd_scene format=3 uid="uid://n8872pntmlh5"]
 
 [ext_resource type="Texture2D" uid="uid://bqwhcq822pmyj" path="res://moonless_godot_assets/sceny/scene_coast.jpg" id="1_7h2o0"]
+[ext_resource type="Script" uid="uid://cm8rv353wsq80" path="res://scripts/mlha.gd" id="2_5tgrv"]
 [ext_resource type="Script" uid="uid://b3crjan3ekwqx" path="res://scripts/scene_button.gd" id="2_enfct"]
 [ext_resource type="FontFile" uid="uid://c4x4u7qp50u2f" path="res://fonts/cinzel_hlavni_fonts/CinzelDecorative-Black.otf" id="2_lecq5"]
+
+[sub_resource type="Shader" id="Shader_5tgrv"]
+code = "
+shader_type canvas_item;
+uniform vec4 barva : source_color = vec4(0.82, 0.86, 0.93, 1.0);
+uniform float hustota = 0.75;
+uniform float vyska = 0.7;
+uniform float rychlost = 0.25;
+uniform float meritko = 2.5;
+uniform float vireni = 1.6;
+
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float noise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	f = f * f * (3.0 - 2.0 * f);
+	return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+	           mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+float fbm(vec2 p) {
+	float v = 0.0;
+	float a = 0.5;
+	for (int i = 0; i < 5; i++) { v += a * noise(p); p *= 2.0; a *= 0.5; }
+	return v;
+}
+void fragment() {
+	vec2 p = vec2(UV.x * 1.78, UV.y) * meritko;
+	float t = TIME * rychlost;
+	// víření: souřadnice se samy deformují šumem, takže mlha se kroutí a přelévá
+	vec2 q = vec2(fbm(p + vec2(t, 0.0)), fbm(p + vec2(5.2, 1.3) - vec2(t * 0.8, t * 0.3)));
+	vec2 r = vec2(fbm(p + vireni * q + vec2(1.7 + t * 1.4, 9.2)), fbm(p + vireni * q + vec2(8.3, 2.8 - t * 0.6)));
+	float vir = fbm(p + vireni * r + vec2(t * 1.8, 0.0));
+	// rychlé cáry, které táhnou přes obraz
+	float cary = fbm(p * 2.0 - vec2(t * 3.0, t * 0.6));
+	float celkem = vir * 0.75 + cary * 0.35;
+	float chuchvalce = smoothstep(0.3, 0.7, celkem);
+	float dech = 0.78 + 0.22 * sin(TIME * 1.4) * sin(TIME * 0.37 + 1.0);
+	float zdola = smoothstep(1.0 - vyska - 0.3, 1.0 - vyska + 0.3, UV.y);
+	COLOR = vec4(barva.rgb, barva.a * chuchvalce * hustota * zdola * dech);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2oy24"]
+shader = SubResource("Shader_5tgrv")
+shader_parameter/barva = Color(0.82, 0.86, 0.93, 1)
+shader_parameter/hustota = 0.75
+shader_parameter/vyska = 0.7
+shader_parameter/rychlost = 0.25
+shader_parameter/meritko = 2.5
+shader_parameter/vireni = 1.6
 
 [node name="Pobrezi" type="Node2D" unique_id=25400125]
 
@@ -45,3 +96,10 @@ theme_override_font_sizes/font_size = 40
 text = "Jít zpět"
 script = ExtResource("2_enfct")
 target_scene = "uid://bdn5rs1rtftwb"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=325731948]
+material = SubResource("ShaderMaterial_2oy24")
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+script = ExtResource("2_5tgrv")
