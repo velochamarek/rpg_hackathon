@@ -484,3 +484,6 @@ func _debug_add(stat: String, amount: int) -> void:
 		return
 	_add(stat, amount)
 	stats_changed.emit()
+	
+func item_count(item_id: String) -> int:
+	return int(items.get(item_id, 0))
